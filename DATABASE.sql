@@ -235,3 +235,132 @@ insert into thedocgia values (17,'Phạm Hồng Phước','Giảng Viên',str_to
 insert into thedocgia values (18,'Đoàn Thùy Trang','Giảng Viên',str_to_date('23/1/1994','%d/%m/%Y'),'KTX Khu A, ĐHQG','dttrang@gmail.com',str_to_date('26/4/2022','%d/%m/%Y'),'Còn hạn');
 insert into thedocgia values (19,'Nguyễn Thị Nhân','Giảng Viên',str_to_date('25/6/1993','%d/%m/%Y'),'KTX Khu A, ĐHQG','ntnhan@gmail.com',str_to_date('26/4/2022','%d/%m/%Y'),'Còn hạn');
 insert into thedocgia values (20,'Nguyễn Thị Hồng','Giảng Viên',str_to_date('23/1/1995','%d/%m/%Y'),'KTX Khu A, ĐHQG','nthong@gmail.com',str_to_date('26/4/2022','%d/%m/%Y'),'Còn hạn');
+
+----------------------------------------
+---------insert thể loại
+INSERT INTO theloai VALUES ('1', 'Sách tham khảo');
+
+----------------------------------------
+-----insert Tác giả
+INSERT INTO tacgia VALUES ('1', 'Dương Hương');
+INSERT INTO tacgia VALUES ('2', 'Văn Trịnh Quỳnh An');
+INSERT INTO tacgia VALUES ('3', 'Quốc Tú');
+INSERT INTO tacgia VALUES ('4', 'Trịnh Nguyên');
+INSERT INTO tacgia VALUES ('5', 'Bảo Trân');
+INSERT INTO tacgia VALUES ('6', 'Anh Trung');
+INSERT INTO tacgia VALUES ('7', 'Minh Tâm');
+INSERT INTO tacgia VALUES ('8', 'Hoài Đức');
+INSERT INTO tacgia VALUES ('9', 'Quốc Hương');
+INSERT INTO tacgia VALUES ('10', 'Minh Đăng');
+INSERT INTO tacgia VALUES ('11', 'Ngọc Huyền LB');
+INSERT INTO tacgia VALUES ('12', 'Nguyễn Ngọc Nam');
+INSERT INTO tacgia VALUES ('13', 'Trang Anh');
+INSERT INTO tacgia VALUES ('14', 'Phan Khắc Nghệ');
+INSERT INTO tacgia VALUES ('15', 'Trần Mạnh Hùng');
+
+INSERT INTO tacgia VALUES ('61', 'Đào Thị Hoàng Ly');
+INSERT INTO tacgia VALUES ('62', 'Đào Lương Hưng');
+INSERT INTO tacgia VALUES ('63', 'Nguyễn Thành Huân');
+INSERT INTO tacgia VALUES ('64', 'Nguyễn Thị Ngọc');
+INSERT INTO tacgia VALUES ('65', 'Phùng Thị Thanh Thúy');
+INSERT INTO tacgia VALUES ('66', 'Đoàn Mạnh Linh');
+INSERT INTO tacgia VALUES ('67', 'Lại Đắc Hợp');
+INSERT INTO tacgia VALUES ('68', 'Nguyễn Thị Lương');
+
+-------------------------------
+--------insert đầu sách
+
+INSERT INTO dausach VALUES ('1', '1', 'Chinh Phục Luyện Thi Vào Lớp 10 Môn Tiếng Anh Theo Chủ Đề', '2020', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '102900', '3', '3', '0', '/HinhAnh/1.jpg');
+INSERT INTO dausach VALUES ('2', '1', 'Tự Học Đột Phá - Kĩ Năng Viết Lại Câu Tiếng Anh', '2017', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '89000', '3', '3', '0', '/HinhAnh/2.jpg');
+INSERT INTO dausach VALUES ('3', '1', 'Luyện Giải Bộ Đề Bồi Dưỡng Học Sinh Giỏi Tiếng Anh Lớp 9', '2017', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '64100', '3', '3', '0', '/HinhAnh/3.jpg');
+INSERT INTO dausach VALUES ('4', '1', 'Tăng tốc luyện đề thi Đánh giá năng lực', '2021', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '180000', '3', '3', '0', '/HinhAnh/4.png');
+INSERT INTO dausach VALUES ('5', '1', 'Công Phá Toán 3', '2018', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '175000', '3', '3', '0', '/HinhAnh/5.jpg');
+INSERT INTO dausach VALUES ('6', '1', 'Công Phá Kỹ Thuật Casio', '2018', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '229000', '3', '3', '0', '/HinhAnh/6.jpg');
+INSERT INTO dausach VALUES ('7', '1', '500 bài luyện Đọc Hiểu – Đọc Điền Tiếng Anh', '2018', 'Nhà Xuất Bản Hồng Đức', '2022-04-25', '169000', '3', '3', '0', '/HinhAnh/7.jpg');
+INSERT INTO dausach VALUES ('8', '1', 'Chinh Phục Cụm Động Từ Tiếng Anh', '2018', 'Nhà Xuất Bản Đại Học Sư Phạm', '2022-04-25', '52000', '3', '3', '0', '/HinhAnh/8.jpg');
+INSERT INTO dausach VALUES ('9', '1', 'Bồi Dưỡng Học Sinh Giỏi Sinh Học 11', '2019', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '43200', '3', '3', '0', '/HinhAnh/9.jpg');
+INSERT INTO dausach VALUES ('10', '1', 'Tự Học Toàn Diện Hóa Học - Từ Cơ Bản Đến Nâng Cao Lớp 9', '2020', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '64100', '3', '3', '0', '/HinhAnh/10.jpg');
+INSERT INTO dausach VALUES ('11', '1', 'Luyện Thi Vào Lớp 10 Môn Ngữ Văn Chuyên Đề Nghị Luận Văn Học 2019', '2019', 'Nhà Xuất Bản Đại Học Sư Phạm', '2022-04-25', '135000', '3', '3', '0', '/HinhAnh/11.jpg');
+INSERT INTO dausach VALUES ('12', '1', 'All In One - Hóa Học Trung Học Phổ Thông', '2019', 'Nhà Xuất Bản Hồng Đức', '2022-04-25', '31640', '3', '3', '0', '/HinhAnh/12.jpg');
+INSERT INTO dausach VALUES ('13', '1', 'Tiết Lộ Bí Quyết 3 Bước Đạt Điểm 8+ Ngữ Văn', '2020', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '154000', '3', '3', '0', '/HinhAnh/13.jpg');
+INSERT INTO dausach VALUES ('14', '1', 'Mega 2021 - Siêu Luyện Đề 9 + THPT Quốc Gia 2021 - Văn Học', '2021', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '82500', '3', '3', '0', '/HinhAnh/14.jpg');
+INSERT INTO dausach VALUES ('15', '1', 'Bộ đề minh họa 2022 - Sách ID 50 Đề thi trắc nghiệm môn Vật Lí', '2021', 'Nhà Xuất Bản Hồng Đức', '2022-04-25', '109000', '3', '3', '0', '/HinhAnh/15.jpg');
+
+--------------------------------
+---------insert sách
+INSERT INTO sach VALUES ('1', '1', 'sẵn có');
+INSERT INTO sach VALUES ('2', '1', 'sẵn có');
+INSERT INTO sach VALUES ('3', '1', 'sẵn có');
+INSERT INTO sach VALUES ('4', '2', 'sẵn có');
+INSERT INTO sach VALUES ('5', '2', 'sẵn có');
+INSERT INTO sach VALUES ('6', '2', 'sẵn có');
+INSERT INTO sach VALUES ('7', '3', 'sẵn có');
+INSERT INTO sach VALUES ('8', '3', 'sẵn có');
+INSERT INTO sach VALUES ('9', '3', 'sẵn có');
+INSERT INTO sach VALUES ('10', '4', 'sẵn có');
+INSERT INTO sach VALUES ('11', '4', 'sẵn có');
+INSERT INTO sach VALUES ('12', '4', 'sẵn có');
+INSERT INTO sach VALUES ('13', '5', 'sẵn có');
+INSERT INTO sach VALUES ('14', '5', 'sẵn có');
+INSERT INTO sach VALUES ('15', '5', 'sẵn có');
+INSERT INTO sach VALUES ('16', '6', 'sẵn có');
+INSERT INTO sach VALUES ('17', '6', 'sẵn có');
+INSERT INTO sach VALUES ('18', '6', 'sẵn có');
+INSERT INTO sach VALUES ('19', '7', 'sẵn có');
+INSERT INTO sach VALUES ('20', '7', 'sẵn có');
+INSERT INTO sach VALUES ('21', '7', 'sẵn có');
+INSERT INTO sach VALUES ('22', '8', 'sẵn có');
+INSERT INTO sach VALUES ('23', '8', 'sẵn có');
+INSERT INTO sach VALUES ('24', '8', 'sẵn có');
+INSERT INTO sach VALUES ('25', '9', 'sẵn có');
+INSERT INTO sach VALUES ('26', '9', 'sẵn có');
+INSERT INTO sach VALUES ('27', '9', 'sẵn có');
+INSERT INTO sach VALUES ('28', '10', 'sẵn có');
+INSERT INTO sach VALUES ('29', '10', 'sẵn có');
+INSERT INTO sach VALUES ('30', '10', 'sẵn có');
+INSERT INTO sach VALUES ('31', '11', 'sẵn có');
+INSERT INTO sach VALUES ('32', '11', 'sẵn có');
+INSERT INTO sach VALUES ('33', '11', 'sẵn có');
+INSERT INTO sach VALUES ('34', '12', 'sẵn có');
+INSERT INTO sach VALUES ('35', '12', 'sẵn có');
+INSERT INTO sach VALUES ('36', '12', 'sẵn có');
+INSERT INTO sach VALUES ('37', '13', 'sẵn có');
+INSERT INTO sach VALUES ('38', '13', 'sẵn có');
+INSERT INTO sach VALUES ('39', '13', 'sẵn có');
+INSERT INTO sach VALUES ('40', '14', 'sẵn có');
+INSERT INTO sach VALUES ('41', '14', 'sẵn có');
+INSERT INTO sach VALUES ('42', '14', 'sẵn có');
+INSERT INTO sach VALUES ('43', '15', 'sẵn có');
+INSERT INTO sach VALUES ('44', '15', 'sẵn có');
+INSERT INTO sach VALUES ('45', '15', 'sẵn có');
+
+----------------------------------
+-----------insert chitiet_dausach_tacgia
+INSERT INTO chitiet_dausach_tacgia VALUES ('1', '1');
+INSERT INTO chitiet_dausach_tacgia VALUES ('2', '1');
+INSERT INTO chitiet_dausach_tacgia VALUES ('3', '1');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '2');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '3');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '4');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '5');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '6');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '7');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '8');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '9');
+INSERT INTO chitiet_dausach_tacgia VALUES ('4', '10');
+INSERT INTO chitiet_dausach_tacgia VALUES ('5', '11');
+INSERT INTO chitiet_dausach_tacgia VALUES ('6', '11');
+INSERT INTO chitiet_dausach_tacgia VALUES ('6', '12');
+INSERT INTO chitiet_dausach_tacgia VALUES ('7', '13');
+INSERT INTO chitiet_dausach_tacgia VALUES ('8', '13');
+INSERT INTO chitiet_dausach_tacgia VALUES ('9', '14');
+INSERT INTO chitiet_dausach_tacgia VALUES ('9', '15');
+INSERT INTO chitiet_dausach_tacgia VALUES ('10', '61');
+INSERT INTO chitiet_dausach_tacgia VALUES ('10', '62');
+INSERT INTO chitiet_dausach_tacgia VALUES ('11', '63');
+INSERT INTO chitiet_dausach_tacgia VALUES ('12', '64');
+INSERT INTO chitiet_dausach_tacgia VALUES ('12', '65');
+INSERT INTO chitiet_dausach_tacgia VALUES ('13', '66');
+INSERT INTO chitiet_dausach_tacgia VALUES ('14', '66');
+INSERT INTO chitiet_dausach_tacgia VALUES ('15', '67');
+INSERT INTO chitiet_dausach_tacgia VALUES ('15', '68');
