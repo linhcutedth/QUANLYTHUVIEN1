@@ -280,7 +280,7 @@ create table SACH
 (
    ID_SACH              int AUTO_INCREMENT not null,
    ID_DAUSACH           int not null,
-   ATTRIBUTE_22         varchar(20),
+   TINHTRANG 		varchar(20),
    primary key (ID_SACH)
 );
 
@@ -390,8 +390,7 @@ insert into thedocgia values (18,'Đoàn Thùy Trang','Giảng Viên',str_to_dat
 insert into thedocgia values (19,'Nguyễn Thị Nhân','Giảng Viên',str_to_date('25/6/1993','%d/%m/%Y'),'KTX Khu A, ĐHQG','ntnhan@gmail.com',str_to_date('26/4/2022','%d/%m/%Y'),'Còn hạn');
 insert into thedocgia values (20,'Nguyễn Thị Hồng','Giảng Viên',str_to_date('23/1/1995','%d/%m/%Y'),'KTX Khu A, ĐHQG','nthong@gmail.com',str_to_date('26/4/2022','%d/%m/%Y'),'Còn hạn');
 
----------insert thể loại
-
+-- INSERT Thể loại
 INSERT INTO theloai VALUES ('1', 'Sách tham khảo');
 INSERT INTO theloai VALUES (2, 'Sách ngôn ngữ');
 INSERT INTO theloai (`ID_THELOAI`, `TENTHELOAI`) VALUES ('3', 'Sách tiểu thuyết');
@@ -414,7 +413,6 @@ INSERT INTO dausach VALUES ('12', '1', 'All In One - Hóa Học Trung Học Ph�
 INSERT INTO dausach VALUES ('13', '1', 'Tiết Lộ Bí Quyết 3 Bước Đạt Điểm 8+ Ngữ Văn', '2020', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '154000', '3', '3', '0', '/HinhAnh/13.jpg');
 INSERT INTO dausach VALUES ('14', '1', 'Mega 2021 - Siêu Luyện Đề 9 + THPT Quốc Gia 2021 - Văn Học', '2021', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '82500', '3', '3', '0', '/HinhAnh/14.jpg');
 INSERT INTO dausach VALUES ('15', '1', 'Bộ đề minh họa 2022 - Sách ID 50 Đề thi trắc nghiệm môn Vật Lí', '2021', 'Nhà Xuất Bản Hồng Đức', '2022-04-25', '109000', '3', '3', '0', '/HinhAnh/15.jpg');
-INSERT INTO DAUSACH(ID_DAUSACH,ID_THELOAI,TENSACH,NAMXUATBAN,NHAXUATBAN,NGNHAP,TRIGIA,TONGSO,SANCO,DANGCHOMUON,HINHANH) VALUES (15,2,'Sách ID Tiếng ANh cho người mới bắt đầu',2017,'ĐHQG Hà Nội','2022-04-26',120000,3,3,0,'/HinhAnh/15.jpg');
 INSERT INTO DAUSACH(ID_DAUSACH,ID_THELOAI,TENSACH,NAMXUATBAN,NHAXUATBAN,NGNHAP,TRIGIA,TONGSO,SANCO,DANGCHOMUON,HINHANH) VALUES (16,2,'Cẩm Nang Cấu Trúc Tiếng Anh',2016,'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội','2022-04-26',264000,3,3,0,'/HinhAnh/16.jpg');
 INSERT INTO DAUSACH(ID_DAUSACH,ID_THELOAI,TENSACH,NAMXUATBAN,NHAXUATBAN,NGNHAP,TRIGIA,TONGSO,SANCO,DANGCHOMUON,HINHANH) VALUES (17,2,'Ngữ Pháp Tiếng Anh',2018,'Nhà Xuất Bản Đà Nẵng','2022-04-26',280000,3,3,0,'/HinhAnh/16.jpg');
 INSERT INTO DAUSACH(ID_DAUSACH,ID_THELOAI,TENSACH,NAMXUATBAN,NHAXUATBAN,NGNHAP,TRIGIA,TONGSO,SANCO,DANGCHOMUON,HINHANH) VALUES (18,2,'Sách luyện thi B1 Vstep 4 kỹ năng',2019,'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội','2022-04-26',290000,3,3,0,'/HinhAnh/18.jpg');
@@ -754,6 +752,22 @@ INSERT INTO chitiet_dausach_tacgia VALUES ('14', '66');
 INSERT INTO chitiet_dausach_tacgia VALUES ('15', '67');
 INSERT INTO chitiet_dausach_tacgia VALUES ('15', '68');
 
+INSERT INTO `CHITIET_DAUSACH_TACGIA` (`ID_DAUSACH`, `ID_TACGIA`) VALUES
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20),
+(21, 21),
+(22, 22),
+(23, 23),
+(24, 24),
+(25, 25),
+(26, 26),
+(27, 27),
+(28, 28),
+(29, 29),
+(30, 30);
 INSERT INTO chitiet_dausach_tacgia (`ID_DAUSACH`, `ID_TACGIA`) VALUES ('31', '36');
 INSERT INTO chitiet_dausach_tacgia (`ID_DAUSACH`, `ID_TACGIA`) VALUES ('32', '37');
 INSERT INTO chitiet_dausach_tacgia (`ID_DAUSACH`, `ID_TACGIA`) VALUES ('33', '38');
