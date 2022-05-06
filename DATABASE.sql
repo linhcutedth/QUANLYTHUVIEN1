@@ -390,6 +390,13 @@ insert into thedocgia values (18,'Đoàn Thùy Trang','Giảng Viên',str_to_dat
 insert into thedocgia values (19,'Nguyễn Thị Nhân','Giảng Viên',str_to_date('25/6/1993','%d/%m/%Y'),'KTX Khu A, ĐHQG','ntnhan@gmail.com',str_to_date('26/4/2022','%d/%m/%Y'),'Còn hạn');
 insert into thedocgia values (20,'Nguyễn Thị Hồng','Giảng Viên',str_to_date('23/1/1995','%d/%m/%Y'),'KTX Khu A, ĐHQG','nthong@gmail.com',str_to_date('26/4/2022','%d/%m/%Y'),'Còn hạn');
 
+---------insert thể loại
+
+INSERT INTO theloai VALUES ('1', 'Sách tham khảo');
+INSERT INTO theloai VALUES (2, 'Sách ngôn ngữ');
+INSERT INTO theloai (`ID_THELOAI`, `TENTHELOAI`) VALUES ('3', 'Sách tiểu thuyết');
+
+
 -- INSERT ĐẦU SÁCH
 
 INSERT INTO dausach VALUES ('1', '1', 'Chinh Phục Luyện Thi Vào Lớp 10 Môn Tiếng Anh Theo Chủ Đề', '2020', 'Nhà Xuất Bản Đại Học Quốc Gia Hà Nội', '2022-04-25', '102900', '3', '3', '0', '/HinhAnh/1.jpg');
@@ -779,11 +786,7 @@ INSERT INTO chitiet_dausach_tacgia VALUES (59,57);
 INSERT INTO chitiet_dausach_tacgia VALUES (60,57);
 
 
----------insert thể loại
 
-INSERT INTO theloai VALUES ('1', 'Sách tham khảo');
-INSERT INTO theloai VALUES (2, 'Sách ngôn ngữ');
-INSERT INTO theloai (`ID_THELOAI`, `TENTHELOAI`) VALUES ('3', 'Sách tiểu thuyết');
 
 
 
