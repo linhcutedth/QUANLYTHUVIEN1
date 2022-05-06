@@ -462,7 +462,37 @@ INSERT INTO theloai VALUES ('1', 'Sách tham khảo');
 INSERT INTO theloai (`ID_THELOAI`, `TENTHELOAI`) VALUES ('3', 'Sách tiểu thuyết');
 
 
+INSERT INTO dausach VALUES (	46,	3,	'Chuyện Con Mèo Dạy Hải Âu Bay',	2019,	'Nhà xuất bản Hội nhà văn',	str_to_date('21/4/2022','%d/%m/%Y'),	49000,	3,	3,	0,	'/HinhAnh/46.jpg');
+INSERT INTO dausach VALUES (	47,	3,	'Có Hai Con Mèo Ngồi Bên Cửa Sổ',2012,		'Nhà xuất bản Trẻ',	str_to_date('21/4/2022','%d/%m/%Y'),85000,		3,	3,	0,	'/HinhAnh/47.jpg');
+INSERT INTO dausach VALUES (	48,	3,	'Làm bạn với bầu trời',2019,		'Nhà xuất bản Trẻ',	str_to_date('21/4/2022','%d/%m/%Y'),110000,		3,	3,	0,	'/HinhAnh/48.jpg');
+INSERT INTO dausach VALUES (	49,	3,	'Cho tôi xin một ve đi tuổi thơ',2019,		'Nhà xuất bản Trẻ',	str_to_date('21/4/2022','%d/%m/%Y'),80000,		3,	3,	0,	'/HinhAnh/49.jpg');
+INSERT INTO dausach VALUES (	50,	3,	'Lược sử thời gian',2018,		'Nhà xuất bản Trẻ',	str_to_date('21/4/2022','%d/%m/%Y'),90000,		3,	3,	0,	'/HinhAnh/50.jpg');
+INSERT INTO dausach VALUES (	51,	3,	'Lược sử vạn vật',2018,		'Nhà xuất bản Khoa Học Hà Nội',	str_to_date('21/4/2022','%d/%m/%Y'),245000,		3,	3,	0,	'/HinhAnh/51.jpg');
+INSERT INTO dausach VALUES (	52,	3,	'Einstein – Cuộc Đời Và Vũ Trụ',2017,		'Nhà xuất bản Thế giới',	str_to_date('21/4/2022','%d/%m/%Y'),277000,		3,	3,	0,	'/HinhAnh/52.jpg');
+INSERT INTO dausach VALUES (	53,	3,	'Tế Bào Gốc: Khám Phá Cùng Nhà Khoa Học',2018,		'Nhà xuất bản Dân Trí',	str_to_date('21/4/2022','%d/%m/%Y'),133000,		3,	3,	0,	'/HinhAnh/53.jpg');
+INSERT INTO dausach VALUES (	54,	3,	'GEN: Lịch Sử Và Tương Lai Của Nhân Loại',2018,		'Nhà xuất bản Dân Trí',	str_to_date('21/4/2022','%d/%m/%Y'),233000,		3,	3,	0,	'/HinhAnh/54.jpg');
+INSERT INTO dausach VALUES (	55,	3,	'Nguồn Gốc Các Loài',2015,		'Nhà xuất bản Thế giới',	str_to_date('21/4/2022','%d/%m/%Y'),155000,		3,	3,	0,	'/HinhAnh/55.jpg');
+INSERT INTO dausach VALUES (	56,	3,	'Súng, Vi Trùng Và Thép',2019,		'Nhà xuất bản Thế giới',	str_to_date('21/4/2022','%d/%m/%Y'),249000,		3,	3,	0,	'/HinhAnh/56.jpg');
+INSERT INTO dausach VALUES (	57,	3,	'Chủ Kiến Thức Ngữ Văn 9 - phần 1',2018,		'Nhà xuất bản Đại Học Quốc Gia Hà Nội',	str_to_date('21/4/2022','%d/%m/%Y'),102000,		3,	3,	0,	'/HinhAnh/57.jpg');
+INSERT INTO dausach VALUES (	58,	3,	'Chiến thắng kì thi 9 vào 10 chuyên môn Vật Lí - tập 1',2018,		'Nhà xuất bản Đại Học Quốc Gia Hà Nội',	str_to_date('21/4/2022','%d/%m/%Y'),189000,		3,	3,	0,	'/HinhAnh/58.jpg');
+INSERT INTO dausach VALUES (	59,	1,	'Luyện Chuyên sâu ngữ pháp và bài tập Tiếng Anh 7 - tập 1',	2018,	'Nhà xuất bản Đại Học Quốc Gia Hà Nội',	str_to_date('21/4/2022','%d/%m/%Y'),60000,		3,	3,	0,	'/HinhAnh/59.jpg');
+INSERT INTO dausach VALUES (	60,	1,	'Luyện Chuyên Sâu  ngữ pháp và bài tập Tiếng Anh 7 - tập 2',2018,		'Nhà xuất bản Đại Học Quốc Gia Hà Nội',	str_to_date('21/4/2022','%d/%m/%Y'),69000,		3,	3,	0,	'/HinhAnh/60.jpg');
 
+INSERT INTO chitiet_dausach_tacgia VALUES (46,46);
+INSERT INTO chitiet_dausach_tacgia VALUES (47,47);
+INSERT INTO chitiet_dausach_tacgia VALUES (48,47);
+INSERT INTO chitiet_dausach_tacgia VALUES (49,47);
+INSERT INTO chitiet_dausach_tacgia VALUES (50,48);
+INSERT INTO chitiet_dausach_tacgia VALUES (51,49);
+INSERT INTO chitiet_dausach_tacgia VALUES (52,50);
+INSERT INTO chitiet_dausach_tacgia VALUES (53,51);
+INSERT INTO chitiet_dausach_tacgia VALUES (54,52);
+INSERT INTO chitiet_dausach_tacgia VALUES (55,53);
+INSERT INTO chitiet_dausach_tacgia VALUES (56,54);
+INSERT INTO chitiet_dausach_tacgia VALUES (57,55);
+INSERT INTO chitiet_dausach_tacgia VALUES (58,56);
+INSERT INTO chitiet_dausach_tacgia VALUES (59,57);
+INSERT INTO chitiet_dausach_tacgia VALUES (60,57);
 
 
 
