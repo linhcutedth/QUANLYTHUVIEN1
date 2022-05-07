@@ -1,0 +1,15 @@
+﻿.rad-border-top-left-right-35px {
+    border-radius: 35px 35px 0px 0px !important;
+}
+
+.rad-border-15px {
+    border-radius: 15px;
+}
+
+.hide {
+    display: none;
+}
+
+.center {
+    text-align: center;
+}
