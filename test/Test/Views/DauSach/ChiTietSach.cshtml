@@ -1,0 +1,297 @@
+﻿
+@{
+    ViewData["Title"] = "ChiTietsach";
+    var sach = ViewData["sach"] as Dausach;
+    var theloai = ViewData["theloai"] as Theloai;
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url(/images/bg_6.jpg); ">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-0 bread">Tủ Sách</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate">
+                <img src="@sach.Hinhanh" class="img-fluid" alt="Colorlib Template">
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>@sach.Tensach</h3>
+                <div class="rating d-flex">
+                    <p class="text-left mr-4">
+                        <a href="#" class="mr-2">5.0</a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                    </p>
+                    <p class="text-left mr-4">
+                        <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
+                    </p>
+                </div>
+                <p class="price"><span>@sach.Trigia?.ToString("#,##0 VNĐ")</span></p>
+
+                @*<form asp-action="AddToCartQuantity" method="post">
+                    <div style="display:none">
+                        <input id="id" name="id" value="@sach.IdDausach" />
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="input-group col-md-6 d-flex mb-3">
+                        <span class="input-group-btn mr-2">
+                            <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                                <i class="ion-ios-remove"></i>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                        <span class="input-group-btn ml-2">
+                            <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                                <i class="ion-ios-add"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="w-100"></div>
+                    //@if (sach.Tongso != 0)
+                    {
+                        <p>
+                            <button type="submit" class="add-to-cart text-center py-2 mr-1">Thêm vào giỏ</button>
+                            <button type="submit" class="buy-now text-center py-2">Mua ngay</button>
+                        </p>
+                    }
+
+                </form>*@
+                @*<p>
+                    <a asp-action="AddToCart" asp-route-id="@sanpham.Masp" class="btn btn-black py-3 px-5 mr-2">Thêm vào giỏ</a>
+                    <a asp-action="AddToCart" asp-route-id="@sanpham.Masp" class="btn btn-primary py-3 px-5">Mua ngay</a>
+                </p>*@
+            </div>
+
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12 nav-link-wrap">
+                <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Mô tả</a>
+
+                    <a class="nav-link ftco-animate mr-lg-1" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Chi Tiết</a>
+
+                    <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Nhận xét của người dùng</a>
+
+                </div>
+            </div>
+            <div class="col-md-12 tab-wrap">
+
+                <div class="tab-content bg-light" id="v-pills-tabContent">
+
+                    <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
+                        <div class="p-4">
+                            <p>Chiếc laptop này mang đến cảm giác cực hầm hố thể hiện sự mạnh mẽ trên từng đường nét với gam màu đen tuyền, các góc cạnh cứng cáp. Vỏ máy được làm từ nhựa cao cấp đem đến khả năng chịu lực tốt, không quá nặng khi cho vào balo để di chuyển đối với một chiếc máy tính gaming. Mặt lưng của phiên bản mới này được tô điểm thêm bằng những đường cắt góc cạnh tựa như những tia sét trên nền đen nhám, tạo cảm giác khí thể mỗi khi mở nắp máy.</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
+                        <div class="p-4">
+                            <div class="container">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th colspan="2">Thể loại</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <th scope="row">Tên thể loại</th>
+                                            <td>@theloai.Tentheloai</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th colspan="2">Đầu sách</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <th scope="row">Tên sách</th>
+                                            <td>@sach.Tensach</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Năm xuất bản</th>
+                                            <td>@sach.Namxuatban</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nhà xuất bản</th>
+                                            <td>@sach.Nhaxuatban</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tổng số</th>
+                                            <td>@sach.Tongso</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Sẵn có</th>
+                                            <td>@sach.Sanco</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Đang cho mượn</th>
+                                            <td>@sach.Dangchomuon</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+                        <div class="row p-4">
+                            <div class="col-md-7">
+                                <h3 class="mb-4">23 Reviews</h3>
+                                <div class="review">
+                                    <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                                    <div class="desc">
+                                        <h4>
+                                            <span class="text-left">Jacob Webb</span>
+                                            <span class="text-right">14 March 2018</span>
+                                        </h4>
+                                        <p class="star">
+                                            <span>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                            </span>
+                                            <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+                                        </p>
+                                        <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+                                    </div>
+                                </div>
+                                <div class="review">
+                                    <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+                                    <div class="desc">
+                                        <h4>
+                                            <span class="text-left">Jacob Webb</span>
+                                            <span class="text-right">14 March 2018</span>
+                                        </h4>
+                                        <p class="star">
+                                            <span>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                            </span>
+                                            <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+                                        </p>
+                                        <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+                                    </div>
+                                </div>
+                                <div class="review">
+                                    <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
+                                    <div class="desc">
+                                        <h4>
+                                            <span class="text-left">Jacob Webb</span>
+                                            <span class="text-right">14 March 2018</span>
+                                        </h4>
+                                        <p class="star">
+                                            <span>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                                <i class="ion-ios-star-outline"></i>
+                                            </span>
+                                            <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+                                        </p>
+                                        <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="rating-wrap">
+                                    <h3 class="mb-4">Give a Review</h3>
+                                    <p class="star">
+                                        <span>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            (98%)
+                                        </span>
+                                        <span>20 Reviews</span>
+                                    </p>
+                                    <p class="star">
+                                        <span>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            (85%)
+                                        </span>
+                                        <span>10 Reviews</span>
+                                    </p>
+                                    <p class="star">
+                                        <span>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            (98%)
+                                        </span>
+                                        <span>5 Reviews</span>
+                                    </p>
+                                    <p class="star">
+                                        <span>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            (98%)
+                                        </span>
+                                        <span>0 Reviews</span>
+                                    </p>
+                                    <p class="star">
+                                        <span>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            <i class="ion-ios-star-outline"></i>
+                                            (98%)
+                                        </span>
+                                        <span>0 Reviews</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .table .thead-light th {
+        font-weight: bold;
+    }
+
+    .table th {
+        font-weight: bold;
+        text-align: center !important;
+        vertical-align: middle;
+        padding: 40px 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+</style>
