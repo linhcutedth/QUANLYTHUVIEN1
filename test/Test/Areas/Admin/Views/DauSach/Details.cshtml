@@ -1,0 +1,92 @@
+﻿@model Test.Models.Dausach
+
+@{ ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+  }
+
+<h1>Chi tiết</h1>
+
+<div>
+    <h4>Đầu sách</h4>
+    <hr />
+
+
+
+    <div class="p-4">
+        <div class="container">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="2">Thông tin đầu sách</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th scope="row">Tên sách</th>
+                        <td>@Model.Tensach</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Trị giá</th>
+                        <td>@Model.Trigia?.ToString("#,##0 VNĐ")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tổng số</th>
+                        <td>@Model.Tongso</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Đang cho mượn</th>
+                        <td>@Model.Dangchomuon</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Đang cho mượn</th>
+                        <td>@Model.Dangchomuon</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Sẵn có</th>
+                        <td>@Model.Sanco</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nhà xuất bản</th>
+                        <td>@Model.Nhaxuatban</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Năm xuất bản</th>
+                        <td>@Model.Namxuatban</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ngày nhập</th>
+                        <td>@Model.Ngnhap</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Thể loại</th>
+                        <td>@Model.IdTheloaiNavigation.Tentheloai</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tác giả</th>
+                        @foreach (var item in Model.ChitietDausachTacgia)
+                        {
+            <td>@item.IdTacgiaNavigation.Tentg</td>
+}
+                    </tr>
+                    <tr>
+                        <th scope="row">Hình ảnh</th>
+                        <td><img src="@Model.Hinhanh" width="150px" height="100px" /></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.IdDausach" class="btn btn-success">Cập nhật</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a asp-action="Index">Trở về trang danh sách</a>
+<style>
+    .table tbody th {
+        width: 350px
+    }
+</style>

@@ -41,6 +41,7 @@ namespace Test.Controllers
                         Sanco = Convert.ToInt32(reader["sanco"]),
                         Dangchomuon = Convert.ToInt32(reader["dangchomuon"]),
                         Hinhanh = reader["hinhanh"].ToString(),
+                        IdTheloaiNavigation = _context.Theloai.Find(Convert.ToInt32(reader["id_theloai"]))
                     });
 
                 }
@@ -104,24 +105,20 @@ namespace Test.Controllers
             double totalPage;
                 if (idtheloai == 0)
                 {
-                Console.WriteLine('1');
                     spList = qLTVContext.ToList();
                     float temp = spList.Count() / (float)12;
                     totalPage = Math.Ceiling(temp);
                     if (page == 0)
                     {
                         spList = spList.Take(12).ToList();
-                    Console.WriteLine('3');
                 }
                     else
                     {
                         spList = LayDauSachTheoTrang(page);
-                    Console.WriteLine('4');
                 }
                 }
                 else
                 {
-                Console.WriteLine('2');
                 spList = LayDauSachTheoTheLoai(idtheloai);
                     float temp = spList.Count() / (float)12;
                     totalPage = Math.Ceiling(temp);
@@ -144,7 +141,7 @@ namespace Test.Controllers
         // GET: Sanpham/Details/5
         public async Task<IActionResult> ChiTietSach(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
