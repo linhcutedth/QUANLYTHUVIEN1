@@ -154,7 +154,19 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-
+            var dausach = _context.Dausach.Where(x => x.IdDausach == id)
+                            .Select(x => new
+                                {
+                                    IdDausach = x.IdDausach,
+                                    IdTheloai = x.IdTheloai,
+                                    Tensach = x.Tensach,
+                                    TacGia = x.ChitietDausachTacgia.Select(c => new
+                                    {
+                                        IdTacgia = c.IdTacgiaNavigation.IdTacgia,
+                                        Tentg = c.IdTacgiaNavigation.Tentg,
+                                    }).ToList()
+                                }).Single();
+            ViewBag.TacGia = dausach.TacGia;
             return View(sach);
         }
 
