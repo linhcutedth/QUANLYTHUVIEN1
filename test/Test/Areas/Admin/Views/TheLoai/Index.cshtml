@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Test.Models.Theloai>
+@{ Layout = "_Layout"; }
+@section Scripts{
+    <script>
+    setTimeout(function () {
+        $('#msgA').fadeOut('slow');
+    }, 2000);
+    $('table .delete').on('click', function () {
+        var id = $(this).data("id");
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("timTheLoai")',
+                data: { "id": id },
+                success: function (response) {
+                    console.log(response)
+                    $("#DeleteRecord #id").val(response.idTheloai);
+                    $("#DeleteRecord #Tentheloai").val(response.tentheloai);
+                }
+            })
+    })
+    </script>
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách thể loại</h6>
+        </div>
+
+        <p></p>
+
+        <div class="container">
+
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" id="IdTheloai" name="Masp" value="1">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="tentheloai">Tên thể loại</label>
+                                <input type="text" name="Tentheloai" class="form-control" id="Tentheloai" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10"></div>
+                            <div class="form-group col-md-2">
+                                <button type="submit" class="btn btn-primary">Thêm</button>
+                            </div>
+                        </div>
+            </form>
+
+
+
+        </div>
+
+        @if (TempData["AlertMessage"] != null)
+        {
+        <div id="msgA" class="@TempData["AlertType"]" role="alert">
+            @TempData["AlertMessage"]
+        </div>}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th width="50%">Tên thể loại</th>
+                            <th width="50%">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+            <tr>
+                <td>@item.Tentheloai</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdTheloai" class="btn btn-secondary">Cập nhật</a>
+                    <a asp-action="Details" asp-route-id="@item.IdTheloai" class="btn btn-info">Chi tiết</a>
+                    <button type="button"
+                            class="btn btn-danger delete"
+                            data-toggle="modal"
+                            data-target="#DeleteRecord"
+                            data-id="@item.IdTheloai">
+                        Xóa
+                    </button>
+                </td>
+            </tr>
+}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="DeleteRecord" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-controller="TheLoai" asp-action="Delete" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" readonly id=id class="form-control" name="id" />
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Tên thể loại</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly id="Tentheloai" class="form-control" name="Tentheloai" />
+                                </div>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+                        <button type="submit" class="btn btn-primary">Xóa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,4 +1,4 @@
-﻿@model Test.Models.Dausach
+﻿@model object
 
 @{ ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -24,61 +24,57 @@
 
                     <tr>
                         <th scope="row">Tên sách</th>
-                        <td>@Model.Tensach</td>
+                        <td>@Model.GetType().GetProperty("Tensach").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Trị giá</th>
-                        <td>@Model.Trigia?.ToString("#,##0 VNĐ")</td>
+                        <td>@Model.GetType().GetProperty("Trigia").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Tổng số</th>
-                        <td>@Model.Tongso</td>
+                        <td>@Model.GetType().GetProperty("Tongso").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Đang cho mượn</th>
-                        <td>@Model.Dangchomuon</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Đang cho mượn</th>
-                        <td>@Model.Dangchomuon</td>
+                        <td>@Model.GetType().GetProperty("Dangchomuon").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Sẵn có</th>
-                        <td>@Model.Sanco</td>
+                        <td>@Model.GetType().GetProperty("Sanco").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Nhà xuất bản</th>
-                        <td>@Model.Nhaxuatban</td>
+                        <td>@Model.GetType().GetProperty("Nhaxuatban").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Năm xuất bản</th>
-                        <td>@Model.Namxuatban</td>
+                        <td>@Model.GetType().GetProperty("Namxuatban").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Ngày nhập</th>
-                        <td>@Model.Ngnhap</td>
+                        <td>@Model.GetType().GetProperty("Ngnhap").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Thể loại</th>
-                        <td>@Model.IdTheloaiNavigation.Tentheloai</td>
+                        <td>@Model.GetType().GetProperty("Tentheloai").GetValue(Model, null)</td>
                     </tr>
                     <tr>
                         <th scope="row">Tác giả</th>
-                        @foreach (var item in Model.ChitietDausachTacgia)
+                        @foreach (var item in ViewBag.TacGia)
                         {
-            <td>@item.IdTacgiaNavigation.Tentg</td>
-}
+                    <td value="@item.GetType().GetProperty("IdTacgia").GetValue(item, null)">@item.GetType().GetProperty("Tentg").GetValue(item, null)</td>
+                        }
                     </tr>
                     <tr>
                         <th scope="row">Hình ảnh</th>
-                        <td><img src="@Model.Hinhanh" width="150px" height="100px" /></td>
+                        <td><img src="@Model.GetType().GetProperty("Hinhanh").GetValue(Model, null)" width="150px" height="100px" /></td>
                     </tr>
                 </tbody>
             </table>
 
 
             <div>
-                <a asp-action="Edit" asp-route-id="@Model.IdDausach" class="btn btn-success">Cập nhật</a>
+                <a asp-action="Edit" asp-route-id="@Model.GetType().GetProperty("IdDausach").GetValue(Model, null)" class="btn btn-success">Cập nhật</a>
             </div>
         </div>
     </div>

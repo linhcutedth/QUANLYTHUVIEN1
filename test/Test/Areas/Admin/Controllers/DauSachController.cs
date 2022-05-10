@@ -41,11 +41,31 @@ namespace Test.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            var dausach = _context.Dausach.Find(id);
-
-            ViewData["theloainav"] = _context.Theloai.Find(dausach.IdTheloai);
-            ViewData["dausach"] = dausach;
+            var dausach = _context.Dausach.Where(x => x.IdDausach == id)
+                            .Select(x => new 
+                            {
+                                IdDausach = x.IdDausach,
+                                IdTheloai = x.IdTheloai,
+                                Tensach = x.Tensach,
+                                Namxuatban = x.Namxuatban,
+                                Nhaxuatban = x.Nhaxuatban,
+                                Ngnhap = x.Ngnhap,
+                                Trigia = x.Trigia,
+                                Tongso = x.Tongso,
+                                Sanco = x.Sanco,
+                                Dangchomuon = x.Dangchomuon,
+                                Hinhanh = x.Hinhanh,
+                                Tentheloai = x.IdTheloaiNavigation.Tentheloai,
+                                TacGia = x.ChitietDausachTacgia.Select(c => new 
+                                {
+                                    IdTacgia = c.IdTacgiaNavigation.IdTacgia,
+                                    Tentg = c.IdTacgiaNavigation.Tentg,
+                                }).ToList()
+                            }).Single();
+            //var dausach = _context.Dausach.Find(id);
+            ViewBag.TacGia = dausach.TacGia;
+            //ViewData["theloainav"] = _context.Theloai.Find(dausach.IdTheloai);
+            //ViewData["dausach"] = dausach;
             if (dausach == null)
             {
                 return NotFound();
@@ -184,7 +204,6 @@ namespace Test.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Console.WriteLine(id);
             try
             {
                 var dausach = await _context.Dausach.FindAsync(id);
