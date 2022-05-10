@@ -204,7 +204,6 @@ namespace Test.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Console.WriteLine(id);
             try
             {
                 var dausach = await _context.Dausach.FindAsync(id);
