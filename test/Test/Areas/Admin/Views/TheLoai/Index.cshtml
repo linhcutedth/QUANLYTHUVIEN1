@@ -1,7 +1,14 @@
 ﻿@model IEnumerable<Test.Models.Theloai>
 @{ Layout = "_Layout"; }
 @section Scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
     <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
     setTimeout(function () {
         $('#msgA').fadeOut('slow');
     }, 2000);
@@ -36,18 +43,18 @@
 
             <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <input type="hidden" class="form-control" id="IdTheloai" name="Masp" value="1">
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="tentheloai">Tên thể loại</label>
-                                <input type="text" name="Tentheloai" class="form-control" id="Tentheloai" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-10"></div>
-                            <div class="form-group col-md-2">
-                                <button type="submit" class="btn btn-primary">Thêm</button>
-                            </div>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="tentheloai">Tên thể loại</label>
+                        <input type="text" name="Tentheloai" class="form-control" id="Tentheloai" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-10"></div>
+                    <div class="form-group col-md-2">
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+                    </div>
+                </div>
             </form>
 
 
@@ -56,9 +63,9 @@
 
         @if (TempData["AlertMessage"] != null)
         {
-        <div id="msgA" class="@TempData["AlertType"]" role="alert">
-            @TempData["AlertMessage"]
-        </div>}
+            <div id="msgA" class="@TempData["AlertType"]" role="alert">
+                @TempData["AlertMessage"]
+            </div>}
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -71,21 +78,21 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-            <tr>
-                <td>@item.Tentheloai</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdTheloai" class="btn btn-secondary">Cập nhật</a>
-                    <a asp-action="Details" asp-route-id="@item.IdTheloai" class="btn btn-info">Chi tiết</a>
-                    <button type="button"
-                            class="btn btn-danger delete"
-                            data-toggle="modal"
-                            data-target="#DeleteRecord"
-                            data-id="@item.IdTheloai">
-                        Xóa
-                    </button>
-                </td>
-            </tr>
-}
+                            <tr>
+                                <td>@item.Tentheloai</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdTheloai" class="btn btn-secondary">Cập nhật</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdTheloai" class="btn btn-info">Chi tiết</a>
+                                    <button type="button"
+                                            class="btn btn-danger delete"
+                                            data-toggle="modal"
+                                            data-target="#DeleteRecord"
+                                            data-id="@item.IdTheloai">
+                                        Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -113,7 +120,7 @@
                                     <input type="text" readonly id="Tentheloai" class="form-control" name="Tentheloai" />
                                 </div>
                             </div>
-                           
+
                         </div>
 
                     </div>

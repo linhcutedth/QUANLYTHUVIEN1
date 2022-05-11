@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -102,6 +103,10 @@ namespace Test.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 TempData["AlertMessage"] = "Tạo thành công";
                 TempData["AlertType"] = "alert alert-success";
+                for(int i = 0; i< dausach.Tongso; i++)
+                {
+                    them_cuon_sach(dausach.IdDausach);
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["theloainav"] = new SelectList(_context.Theloai, "idtheloai", "idtheloai", dausach.IdTheloai);
@@ -207,7 +212,6 @@ namespace Test.Areas.Admin.Controllers
             try
             {
                 var dausach = await _context.Dausach.FindAsync(id);
-                Console.WriteLine(dausach.Tensach);
                 _context.Dausach.Remove(dausach);
                 await _context.SaveChangesAsync();
                 TempData["AlertMessage"] = "Xóa thành công";
@@ -232,6 +236,23 @@ namespace Test.Areas.Admin.Controllers
         {
             var sp = _context.Dausach.Find(id);
             return Json(sp);
+        }
+
+        private void them_cuon_sach(int iddausach)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            // Câu truy vấn gồm: chèn dữ liệu vào và lấy định danh(Primary key) mới chèn vào
+            string query = @"INSERT INTO sach (id_dausach, tinhtrang) VALUES (@id_dausach, @tinhtrang);";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_dausach", iddausach);
+            cmd.Parameters.AddWithValue("@tinhtrang", "sẵn có");
+
+            cmd.ExecuteScalar(); // Thi hành SQL trả về giá trị đầu tiên
+            
         }
     }
 }
