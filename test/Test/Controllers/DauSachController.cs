@@ -99,7 +99,6 @@ namespace Test.Controllers
         // GET: Sanpham
         public IActionResult Sach(int idtheloai, int page)
         {
-            Console.WriteLine(idtheloai);
             List<Dausach> spList = new List<Dausach>();
             var qLTVContext = _context.Dausach.Include(d => d.IdTheloaiNavigation);
             double totalPage;
@@ -198,11 +197,11 @@ namespace Test.Controllers
         }
 
         // GET: DauSach/Create
-        public IActionResult Create()
-        {
-            ViewData["IdTheloai"] = new SelectList(_context.Theloai, "IdTheloai", "IdTheloai");
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    ViewData["IdTheloai"] = new SelectList(_context.Theloai, "IdTheloai", "IdTheloai");
+        //    return View();
+        //}
 
         // POST: DauSach/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

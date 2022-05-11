@@ -1,7 +1,17 @@
 ﻿@model IEnumerable<Test.Models.Dausach>
 @{ Layout = "_Layout"; }
 @section Scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
     <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+        $(function () {
+            $("#IdTheloai").select2();
+        })
     setTimeout(function () {
         $('#msgA').fadeOut('slow');
     }, 2000);
@@ -119,9 +129,9 @@
 
         @if (TempData["AlertMessage"] != null)
         {
-    <div id="msgA" class="@TempData["AlertType"]" role="alert">
-        @TempData["AlertMessage"]
-    </div>}
+            <div id="msgA" class="@TempData["AlertType"]" role="alert">
+                @TempData["AlertMessage"]
+            </div>}
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -139,26 +149,26 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-            <tr>
-                <td>@item.Tensach</td>
-                <td>@item.Namxuatban</td>
-                <td>@item.Nhaxuatban</td>
-                <td>@item.Trigia?.ToString("#,##0 VNĐ")</td>
-                <td>@item.Tongso</td>
-                <td>@item.Dangchomuon</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdDausach" class="btn btn-secondary">Cập nhật</a>
-                    <a asp-action="Details" asp-route-id="@item.IdDausach" class="btn btn-info">Chi tiết</a>
-                    <button type="button"
-                            class="btn btn-danger delete"
-                            data-toggle="modal"
-                            data-target="#DeleteRecord"
-                            data-id="@item.IdDausach">
-                        Xóa
-                    </button>
-                </td>
-            </tr>
-}
+                            <tr>
+                                <td>@item.Tensach</td>
+                                <td>@item.Namxuatban</td>
+                                <td>@item.Nhaxuatban</td>
+                                <td>@item.Trigia?.ToString("#,##0 VNĐ")</td>
+                                <td>@item.Tongso</td>
+                                <td>@item.Dangchomuon</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdDausach" class="btn btn-secondary">Cập nhật</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdDausach" class="btn btn-info">Chi tiết</a>
+                                    <button type="button"
+                                            class="btn btn-danger delete"
+                                            data-toggle="modal"
+                                            data-target="#DeleteRecord"
+                                            data-id="@item.IdDausach">
+                                        Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -204,7 +214,7 @@
                                     <input type="text" readonly id="Trigia" class="form-control" name="Trigia" />
                                 </div>
                             </div>
-                            
+
                         </div>
 
                     </div>
@@ -217,3 +227,15 @@
             </div>
         </div>
     </div>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: calc(1.5em + 0.75rem + 2px) !important;
+        }
+
+        .select2-selection--single .select2-selection__rendered {
+            padding-top: 2px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 5px !important;
+    </style>
