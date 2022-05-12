@@ -11,6 +11,21 @@
         });
         $(function () {
             $("#IdTheloai").select2();
+            $('#IdTacgia').select2({
+                language: {
+                    noResults: function () {
+                        return `<button style="width: 100%" type="button"
+            class="btn btn-primary tacgia"
+            data-toggle="modal"
+            data-target="#TacGia">+Thêm tác giả</button>
+            </li>`;
+                    }
+                },
+
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            })
         })
     setTimeout(function () {
         $('#msgA').fadeOut('slow');
@@ -35,6 +50,27 @@
             var date = $(this).val();
             console.log(date)
             $('#NgNhap').val(date);
+        })
+        $('body').on('click', '#btntg', function (e) {
+            e.preventDefault();
+
+            //Get Value
+            // var selected = $('.category').select2("val");
+            var selected = $('#IdTacgia').val();
+            var temp = "";
+            for (var i = 0; i < selected.length; i++) {
+                temp += selected[i] + "&";
+            }
+            $('#txttg').val(temp);
+        });
+        $(document).ready(function () {
+            var today = new Date();
+            var yearmin = today.getFullYear() - 8;
+            var yearmax = today.getFullYear();
+            $("#Namxuatban").attr({
+                "max": yearmax,
+                "min": yearmin
+            });
         })
     </script>
 }
@@ -83,18 +119,41 @@
 
                             <div class="form-group col-md-4">
                                 <label for="Ramat">Năm xuất bản</label>
-                                <input type="number" name="Namxuatban" class="form-control" id="Namxuatban" />
+                                <input type="number" name="Namxuatban" class="form-control" id="Namxuatban" required />
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="Soluong">Tổng số</label>
-                                <input type="number" class="form-control" id="Tongso" name="Tongso">
+                                <input type="number" class="form-control" id="Tongso" name="Tongso" required min="0">
                             </div>
                         </div>
-
+                        <div class="input-group mb-3">
+                            <label class="col-md-12" >Tác giả</label>
+                            <select class="custom-select" name="IdTacgia" id="IdTacgia" multiple="multiple">
+                                @foreach (Tacgia tg in (List<Tacgia>)ViewBag.TacGia)
+                                {
+                                    <option value="@tg.IdTacgia">@tg.Tentg</option>
+                                }
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="btntg">Áp dụng</button>
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control" id="txttg" name="txttg" />
+                        @*<div class="form-row">gN
+                            <div class="form-group col-md-12 tg">
+                                <label for="TacGia">Tác giả</label>
+                                <select name="IdTacgia" id="IdTacgia" class="form-control" multiple="multiple">
+                                    @foreach (Tacgia tg in (List<Tacgia>)ViewBag.TacGia)
+                                    {
+                                        <option value="@tg.IdTacgia">@tg.Tentg</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>*@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="Tensp">Tên sách</label>
-                                <input type="text" class="form-control" id="Tensach" name="Tensach">
+                                <input type="text" class="form-control" id="Tensach" name="Tensach" required>
                             </div>
 
 
@@ -108,7 +167,7 @@
                             <input type="hidden" class="form-control" id="NgNhap" name="NgNhap" />
                             <div class="form-group col-md-4">
                                 <label for="Trigia">Trị giá</label>
-                                <input type="number" class="form-control" id="Trigia" name="Trigia">
+                                <input type="number" class="form-control" id="Trigia" name="Trigia" required min="0">
                             </div>
                         </div>
 
@@ -227,6 +286,40 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="TacGia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm tác giả</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-controller="TacGia" asp-action="CreateDS" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" readonly id=id class="form-control" name="id" />
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Tên tác giả</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="Tentg" class="form-control" name="Tentg" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <style>
         .select2-container--default .select2-selection--single {
             height: calc(1.5em + 0.75rem + 2px) !important;
@@ -238,4 +331,12 @@
 
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             top: 5px !important;
+        }
+        .tg{
+            padding: 0px!important;
+        }
+        .select2-container--default .select2-selection--multiple {
+            height: calc(1.5em + 0.75rem + 2px) !important;
+            width : 813px!important;
+        }
     </style>
