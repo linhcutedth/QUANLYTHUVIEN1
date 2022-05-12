@@ -71,6 +71,21 @@ namespace Test.Controllers
             return View(tacgia);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDS([Bind("IdTacgia,Tentg")] Tacgia tacgia)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(tacgia);
+                await _context.SaveChangesAsync();
+                TempData["AlertMessage"] = "Tạo thành công";
+                TempData["AlertType"] = "alert alert-success";
+                return Redirect("/admin/dausach");
+            }
+            return View(tacgia);
+        }
+
         // GET: TacGia/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

@@ -32,6 +32,7 @@ namespace Test.Areas.Admin.Controllers
         {
             var lapTopContext = _context.Dausach.Include(s => s.IdTheloaiNavigation);
             ViewBag.TheLoai = _context.Theloai.ToList();
+            ViewBag.TacGia = _context.Tacgia.ToList();
             return View(await lapTopContext.ToListAsync());
         }
 
@@ -82,9 +83,14 @@ namespace Test.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdDausach,IdTheloai,Tensach,Namxuatban,Nhaxuatban,Trigia,Tongso,HinhAnhFile")] Dausach dausach,string NgNhap)
+        public async Task<IActionResult> Create([Bind("IdDausach,IdTheloai,Tensach,Namxuatban,Nhaxuatban,Trigia,Tongso,HinhAnhFile")] Dausach dausach,string NgNhap, string txttg)
         {
-            if (ModelState.IsValid)
+            if (String.IsNullOrEmpty(txttg))
+            {
+                TempData["AlertMessage"] = "Phải nhấn nút áp dụng ở mục thêm tác giả";
+                TempData["AlertType"] = "alert alert-danger";
+            }
+            else if (ModelState.IsValid)
             {
                 if (dausach.HinhAnhFile != null)
                 {
@@ -107,10 +113,11 @@ namespace Test.Areas.Admin.Controllers
                 {
                     them_cuon_sach(dausach.IdDausach);
                 }
+                xuly_cttg_dausach(dausach.IdDausach, txttg);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["theloainav"] = new SelectList(_context.Theloai, "idtheloai", "idtheloai", dausach.IdTheloai);
-            return View(dausach);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Sanpham/Edit/5
@@ -139,6 +146,7 @@ namespace Test.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdDausach,IdTheloai,Tensach,Namxuatban,Nhaxuatban,Trigia,Tongso,NgNhap,HinhAnhFile")] Dausach dausach)
         {
+            
             if (id != dausach.IdDausach)
             {
                 return NotFound();
@@ -253,6 +261,31 @@ namespace Test.Areas.Admin.Controllers
 
             cmd.ExecuteScalar(); // Thi hành SQL trả về giá trị đầu tiên
             
+        }
+        private void xuly_cttg_dausach(int iddausach,string txttacgia)
+        {
+            string[] arrListStr = txttacgia.Split('&');
+            for (int i = 0; i < arrListStr.Length - 1; i++)
+            {
+                    int iddtacgia = Int32.Parse(arrListStr[i]);
+                    them_cttg_sach(iddausach, iddtacgia);
+            }
+        }
+        private void them_cttg_sach(int iddausach,int idtacgia)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            // Câu truy vấn gồm: chèn dữ liệu vào và lấy định danh(Primary key) mới chèn vào
+            string query = @"INSERT INTO chitiet_dausach_tacgia (id_dausach, id_tacgia) VALUES (@id_dausach, @id_tacgia);";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_dausach", iddausach);
+            cmd.Parameters.AddWithValue("@id_tacgia", idtacgia);
+
+            cmd.ExecuteScalar(); // Thi hành SQL trả về giá trị đầu tiên
+
         }
     }
 }
