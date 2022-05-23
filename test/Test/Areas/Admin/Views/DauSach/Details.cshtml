@@ -60,11 +60,15 @@
                     </tr>
                     <tr>
                         <th scope="row">Tác giả</th>
-                        @foreach (var item in ViewBag.TacGia)
-                        {
-                    <td value="@item.GetType().GetProperty("IdTacgia").GetValue(item, null)">@item.GetType().GetProperty("Tentg").GetValue(item, null)</td>
+                        <td>
+                            @foreach (var item in ViewBag.TacGia)
+                            {
+                            <span value="@item.GetType().GetProperty("IdTacgia").GetValue(item, null)">@item.GetType().GetProperty("Tentg").GetValue(item, null)</span>
+                            <br/>
                         }
-                    </tr>
+                            </td>
+
+                        </tr>
                     <tr>
                         <th scope="row">Hình ảnh</th>
                         <td><img src="@Model.GetType().GetProperty("Hinhanh").GetValue(Model, null)" width="150px" height="100px" /></td>

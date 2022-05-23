@@ -1,0 +1,214 @@
+﻿@model IEnumerable<Test.Models.Thedocgia>
+@{ Layout = "_Layout"; }
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    setTimeout(function () {
+        $('#msgA').fadeOut('slow');
+    }, 2000);
+    $('table .delete').on('click', function () {
+        var id = $(this).data("id");
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("timDocGia")',
+                data: { "id": id },
+                success: function (response) {
+                    console.log(response)
+                    $("#DeleteRecord #id").val(response.idDg);
+                    $("#DeleteRecord #Hotendg").val(response.hotendg);
+                    $("#DeleteRecord #Loaidg").val(response.loaidg);
+                    $("#DeleteRecord #Tinhtrang").val(response.tinhtrang);
+                }
+            })
+    })
+        $('#xlnhapngay').on('blur', function () {
+            var date = $(this).val();
+            console.log(date)
+            $('#NgSinh').val(date);
+        })
+    </script>
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách độc giả</h6>
+        </div>
+
+        <p></p>
+
+        <div class="container">
+
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" id="IdDg" name="Masp" value="1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="Loaidg">Loại độc giả</label>
+                                <select name="Loaidg" id="Loaidg" class="form-control">
+                                    <option value="Sinh viên">Sinh viên</option>
+                                    <option value="Giảng viên">Giảng viên</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                <label for="Hotendg">Tên độc giả</label>
+                                <input type="text" name="Hotendg" class="form-control" id="Hotendg" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Ngày sinh</label>
+                                <input type="datetime-local" class="form-control" id="xlnhapngay"  required/>
+                            </div>
+                            <input type="hidden" class="form-control" id="NgSinh" name="NgSinh" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Địa chỉ</label>
+                                <input type="text" class="form-control" id="Diachi" name="Diachi" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Email</label>
+                                <input type="email" class="form-control" id="Email" name="Email" required/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10"></div>
+                            <div class="form-group col-md-2">
+                                <button type="submit" class="btn btn-primary">Thêm</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div id="msgA" class="@TempData["AlertType"]" role="alert">
+                @TempData["AlertMessage"]
+            </div>}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th width="30%">Tên độc giả</th>
+                            <th width="10%">Loại độc giả</th>
+                            <th width="10%">Tình trạng</th>
+                            <th width="10%">Email</th>
+                            <th width="40%">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Hotendg</td>
+                                <td>@item.Loaidg</td>
+                                <td>@item.Tinhtrang</td>
+                                <td>@item.Email</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdDg" class="btn btn-secondary">Cập nhật</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdDg" class="btn btn-info">Chi tiết</a>
+                                    <button type="button"
+                                            class="btn btn-danger delete"
+                                            data-toggle="modal"
+                                            data-target="#DeleteRecord"
+                                            data-id="@item.IdDg">
+                                        Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="DeleteRecord" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-controller="DocGia" asp-action="Delete" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" readonly id=id class="form-control" name="id" />
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Tên độc giả</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly id="Hotendg" class="form-control" name="Hotendg" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Loại độc giả</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly id="Loaidg" class="form-control" name="Loaidg" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Tình trạng</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly id="Tinhtrang" class="form-control" name="Tinhtrang" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+                        <button type="submit" class="btn btn-primary">Xóa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: calc(1.5em + 0.75rem + 2px) !important;
+        }
+
+        .select2-selection--single .select2-selection__rendered {
+            padding-top: 2px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 5px !important;
+        }
+        .tg{
+            padding: 0px!important;
+        }
+        .select2-container--default .select2-selection--multiple {
+            height: calc(1.5em + 0.75rem + 2px) !important;
+            width : 813px!important;
+        }
+    </style>
