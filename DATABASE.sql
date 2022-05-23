@@ -720,8 +720,7 @@ INSERT INTO sach VALUES ('180', '60', 'sẵn có');
 
 
 
-----------------------------------
------------insert chitiet_dausach_tacgia
+-- insert chitiet_dausach_tacgia
 
 INSERT INTO chitiet_dausach_tacgia VALUES ('1', '1');
 INSERT INTO chitiet_dausach_tacgia VALUES ('2', '1');
