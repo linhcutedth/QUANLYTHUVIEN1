@@ -144,7 +144,7 @@ namespace Test.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdDausach,IdTheloai,Tensach,Namxuatban,Nhaxuatban,Trigia,Tongso,NgNhap,HinhAnhFile")] Dausach dausach)
+        public async Task<IActionResult> Edit(int id, [Bind("IdDausach,IdTheloai,Tensach,Namxuatban,Nhaxuatban,Trigia,Tongso,Ngnhap,HinhAnhFile,Sanco,Dangchomuon")] Dausach dausach, int tongsocu)
         {
             
             if (id != dausach.IdDausach)
@@ -166,8 +166,18 @@ namespace Test.Areas.Admin.Controllers
                         }
                         dausach.Hinhanh = "/HinhAnh/" + dausach.HinhAnhFile.FileName;
                     }
+                    int temp = 0;
+                    if(dausach.Tongso != tongsocu)
+                    {
+                        temp = dausach.Tongso - tongsocu;
+                    }
+                    dausach.Sanco = dausach.Sanco + temp;
                     _context.Update(dausach);
                     await _context.SaveChangesAsync();
+                    for (int i = 0; i < temp; i++)
+                    {
+                        them_cuon_sach(dausach.IdDausach);
+                    }
                     TempData["AlertMessage"] = "Cập nhật thành công";
                     TempData["AlertType"] = "alert alert-success";
                 }
