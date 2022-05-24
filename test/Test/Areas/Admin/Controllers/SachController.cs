@@ -97,8 +97,10 @@ namespace Test.Areas.Admin.Controllers
                 var sach = await _context.Sach.FindAsync(id);
                 _context.Sach.Remove(sach);
                 await _context.SaveChangesAsync();
+                update_dau_sach(sach.IdDausach);
                 TempData["AlertMessage"] = "Xóa thành công";
                 TempData["AlertType"] = "alert alert-success";
+
                 return RedirectToAction(nameof(Index));
 
             }
@@ -115,6 +117,22 @@ namespace Test.Areas.Admin.Controllers
             var sach = _context.Sach.Find(id);
             return Json(sach);
         }
-        
+
+        private void update_dau_sach(int iddausach)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            // Câu truy vấn gồm: chèn dữ liệu vào và lấy định danh(Primary key) mới chèn vào
+            string query = @"UPDATE DAUSACH SET TONGSO = TONGSO - 1, SANCO = SANCO - 1 WHERE ID_DAUSACH = @id_dausach";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_dausach", iddausach);
+
+            cmd.ExecuteScalar(); // Thi hành SQL trả về giá trị đầu tiên
+
+        }
+
     }
 }

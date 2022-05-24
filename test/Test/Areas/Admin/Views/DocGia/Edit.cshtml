@@ -21,13 +21,19 @@
             <span asp-validation-for="Loaidg" class="text-danger"></span>
         </div>
         <div class="form-group">
+            <input asp-for="Tinhtrang" class="form-control" type="hidden"></input>
+        </div>
+        <div class="form-group">
+            <input asp-for="Nglapthe" class="form-control" type="hidden"></input>
+        </div>
+        <div class="form-group">
             <label asp-for="Hotendg" class="control-label"></label>
             <input asp-for="Hotendg" class="form-control"></input>
             <span asp-validation-for="Hotendg" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Email" class="control-label"></label>
-            <input asp-for="Email" class="form-control" type="email"/>
+            <input asp-for="Email" class="form-control" type="email" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group">

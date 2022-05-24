@@ -24,15 +24,15 @@ namespace Test.Models
         [Display(Name = "Tên sách")]
         public string Tensach { get; set; }
         [Display(Name = "Năm xuất bản")]
-        public decimal? Namxuatban { get; set; }
+        public int? Namxuatban { get; set; }
         [Display(Name = "Nhà xuất bản")]
         public string Nhaxuatban { get; set; }
         [Display(Name = "Ngày nhập")]
         public DateTime? Ngnhap { get; set; }
         [Display(Name = "Trị giá")]
-        public decimal? Trigia { get; set; }
+        public int? Trigia { get; set; }
         [Display(Name = "Tổng số")]
-        public int? Tongso { get; set; }
+        public int Tongso { get; set; }
         [Display(Name = "Sẵn có")]
         public int? Sanco { get; set; }
         [Display(Name = "Đang cho mượn")]
