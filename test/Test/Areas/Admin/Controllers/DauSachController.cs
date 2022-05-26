@@ -31,8 +31,14 @@ namespace Test.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var lapTopContext = _context.Dausach.Include(s => s.IdTheloaiNavigation);
+            var KcNamxb = _context.Thamso
+                            .Select(x => new
+                            {
+                                KcNamxb = x.KcNamxb
+                            }).Single();
             ViewBag.TheLoai = _context.Theloai.ToList();
             ViewBag.TacGia = _context.Tacgia.ToList();
+            ViewBag.KcNamxb = KcNamxb.KcNamxb;
             return View(await lapTopContext.ToListAsync());
         }
 

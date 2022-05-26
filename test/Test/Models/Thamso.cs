@@ -11,7 +11,7 @@ namespace Test.Models
     {
         public int? Mintuoi { get; set; }
         public int? Maxtuoi { get; set; }
-        public int? Thoihanthe { get; set; }
+        public int Thoihanthe { get; set; }
         public decimal? KcNamxb { get; set; }
         public decimal? Maxsachmuon { get; set; }
         public decimal? Maxngaymuon { get; set; }

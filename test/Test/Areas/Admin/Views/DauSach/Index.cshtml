@@ -64,8 +64,10 @@
             $('#txttg').val(temp);
         });
         $(document).ready(function () {
+            var kc = +$("#KcNamxb").val();
+            console.log(kc)
             var today = new Date();
-            var yearmin = today.getFullYear() - 8;
+            var yearmin = today.getFullYear() - kc;
             var yearmax = today.getFullYear();
             $("#Namxuatban").attr({
                 "max": yearmax,
@@ -90,6 +92,7 @@
 
             <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <input type="hidden" class="form-control" id="IdDausach" name="Masp" value="1">
+                <input type="hidden" class="form-control" id="KcNamxb" value="@ViewBag.KcNamxb">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
@@ -140,16 +143,16 @@
                         </div>
                         <input type="hidden" class="form-control" id="txttg" name="txttg" />
                         @*<div class="form-row">gN
-            <div class="form-group col-md-12 tg">
-                <label for="TacGia">Tác giả</label>
-                <select name="IdTacgia" id="IdTacgia" class="form-control" multiple="multiple">
-                    @foreach (Tacgia tg in (List<Tacgia>)ViewBag.TacGia)
-                    {
-                        <option value="@tg.IdTacgia">@tg.Tentg</option>
-                    }
-                </select>
-            </div>
-        </div>*@
+                    <div class="form-group col-md-12 tg">
+                        <label for="TacGia">Tác giả</label>
+                        <select name="IdTacgia" id="IdTacgia" class="form-control" multiple="multiple">
+                            @foreach (Tacgia tg in (List<Tacgia>)ViewBag.TacGia)
+                            {
+                                <option value="@tg.IdTacgia">@tg.Tentg</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="Tensp">Tên sách</label>

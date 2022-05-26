@@ -97,11 +97,14 @@ namespace Test.Controllers
         }
 
         // GET: Sanpham
-        public IActionResult Sach(int idtheloai, int page)
+        public IActionResult Sach(int idtheloai, int page, string tensach)
         {
+            update_docgia();
             List<Dausach> spList = new List<Dausach>();
             var qLTVContext = _context.Dausach.Include(d => d.IdTheloaiNavigation);
             double totalPage;
+            if (string.IsNullOrEmpty(tensach))
+            {
                 if (idtheloai == 0)
                 {
                     spList = qLTVContext.ToList();
@@ -134,7 +137,49 @@ namespace Test.Controllers
                 ViewBag.dsTheLoai = _context.Theloai.ToList();
                 ViewBag.totalPage = totalPage;
                 ViewBag.pageCurrent = page;
+            }
+            else
+            {
+                spList = _context.Dausach.Where(sp => sp.Tensach.ToLower().Contains(tensach.ToLower())).Select(sp => new Dausach
+                {
+                    IdDausach = sp.IdDausach,
+                    IdTheloai = sp.IdTheloai,
+                    Tensach = sp.Tensach,
+                    Nhaxuatban = sp.Nhaxuatban,
+                    Namxuatban = sp.Namxuatban,
+                    Ngnhap = sp.Ngnhap,
+                    Trigia = sp.Trigia,
+                    Tongso = sp.Tongso,
+                    Sanco = sp.Sanco,
+                    Dangchomuon = sp.Dangchomuon,
+                    Hinhanh = sp.Hinhanh
+                }).ToList();
+                ViewBag.dsTheLoai = _context.Theloai.ToList();
+            }
             return View(spList);
+        }
+
+        private void update_docgia()
+        {
+            var Thoihanthe = _context.Thamso
+                            .Select(x => new
+                            {
+                                Thoihanthe = x.Thoihanthe
+                            }).Single();
+            int temp = Thoihanthe.Thoihanthe * 30;
+            DateTime dt = DateTime.Today.AddDays(-temp);
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            // Câu truy vấn gồm: chèn dữ liệu vào và lấy định danh(Primary key) mới chèn vào
+            string query = "UPDATE THEDOCGIA SET TINHTRANG = @TINHTRANG WHERE NGLAPTHE <= @NGLAPTHE";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@TINHTRANG", "Hết hạn");
+            cmd.Parameters.AddWithValue("@NGLAPTHE", dt);
+
+            cmd.ExecuteScalar(); // Thi hành SQL trả về giá trị đầu tiên
         }
 
         // GET: Sanpham/Details/5
