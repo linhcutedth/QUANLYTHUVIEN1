@@ -230,6 +230,11 @@ namespace Test.Areas.Admin.Controllers
             try
             {
                 var dausach = await _context.Dausach.FindAsync(id);
+                if (dausach.Tongso == dausach.Sanco)
+                {
+                    xoa_cuon_sach(dausach.IdDausach);
+                    xoa_cttg_ds(dausach.IdDausach);
+                }
                 _context.Dausach.Remove(dausach);
                 await _context.SaveChangesAsync();
                 TempData["AlertMessage"] = "Xóa thành công";
@@ -296,6 +301,32 @@ namespace Test.Areas.Admin.Controllers
 
             cmd.ExecuteScalar(); // Thi hành SQL trả về giá trị đầu tiên
 
+        }
+        private void xoa_cuon_sach(int iddausach)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+            string query = @"delete from sach where id_dausach = @id_dausach;";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_dausach", iddausach);
+
+            cmd.ExecuteNonQuery(); // Thi hành SQL trả về giá trị đầu tiên
+        }
+        private void xoa_cttg_ds(int iddausach)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            // Câu truy vấn gồm: chèn dữ liệu vào và lấy định danh(Primary key) mới chèn vào
+            string query = @"delete from chitiet_dausach_tacgia where id_dausach = @id_dausach;";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_dausach", iddausach);
+
+            cmd.ExecuteNonQuery(); // Thi hành SQL trả về giá trị đầu tiên
         }
     }
 }
