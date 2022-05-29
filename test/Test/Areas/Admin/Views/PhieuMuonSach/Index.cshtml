@@ -52,18 +52,18 @@
             console.log(date)
             $('#NgMuon').val(date);
         })
-        //$('body').on('click', '#btnSach', function (e) {
-        //    e.preventDefault();
+        $('body').on('click', '#btnSach', function (e) {
+            e.preventDefault();
 
-        //    //Get Value
-        //    // var selected = $('.category').select2("val");
-        //    var selected = $('#IdSach').val();
-        //    var temp = "";
-        //    for (var i = 0; i < selected.length; i++) {
-        //        temp += selected[i] + "&";
-        //    }
-        //    $('#txtSach').val(temp);
-        //});
+            //Get Value
+            // var selected = $('.category').select2("val");
+            var selected = $('#IdSach').val();
+            var temp = "";
+            for (var i = 0; i < selected.length; i++) {
+                temp += selected[i] + "&";
+            }
+            $('#txtSach').val(temp);
+        });
        
     </script>
 }
