@@ -94,7 +94,7 @@ namespace Test.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdDg,Hotendg,Loaidg,Diachi,Email,Ngsinh")] Thedocgia docgia)
+        public async Task<IActionResult> Edit(int id, [Bind("IdDg,Hotendg,Loaidg,Diachi,Email,Ngsinh,Tinhtrang,Nglapthe")] Thedocgia docgia)
         {
 
             if (id != docgia.IdDg)

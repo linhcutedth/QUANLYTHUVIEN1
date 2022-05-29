@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <label class="col-md-12" >Tác giả</label>
+                            <label class="col-md-12">Tác giả</label>
                             <select class="custom-select" name="IdTacgia" id="IdTacgia" multiple="multiple">
                                 @foreach (Tacgia tg in (List<Tacgia>)ViewBag.TacGia)
                                 {
@@ -140,23 +140,27 @@
                         </div>
                         <input type="hidden" class="form-control" id="txttg" name="txttg" />
                         @*<div class="form-row">gN
-                            <div class="form-group col-md-12 tg">
-                                <label for="TacGia">Tác giả</label>
-                                <select name="IdTacgia" id="IdTacgia" class="form-control" multiple="multiple">
-                                    @foreach (Tacgia tg in (List<Tacgia>)ViewBag.TacGia)
-                                    {
-                                        <option value="@tg.IdTacgia">@tg.Tentg</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>*@
+            <div class="form-group col-md-12 tg">
+                <label for="TacGia">Tác giả</label>
+                <select name="IdTacgia" id="IdTacgia" class="form-control" multiple="multiple">
+                    @foreach (Tacgia tg in (List<Tacgia>)ViewBag.TacGia)
+                    {
+                        <option value="@tg.IdTacgia">@tg.Tentg</option>
+                    }
+                </select>
+            </div>
+        </div>*@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="Tensp">Tên sách</label>
                                 <input type="text" class="form-control" id="Tensach" name="Tensach" required>
                             </div>
-
-
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="Nhaxuatban">Nhà xuất bản</label>
+                                <input type="text" class="form-control" id="Nhaxuatban" name="Nhaxuatban" required>
+                            </div>
                         </div>
 
                         <div class="form-row">
