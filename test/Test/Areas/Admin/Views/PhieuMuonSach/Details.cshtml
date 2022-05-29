@@ -1,0 +1,74 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = "ViewDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Chi tiết</h1>
+
+<div>
+    <h4>Phiếu mượn sách</h4>
+    <hr />
+
+    <div class="p-4">
+        <div class="container">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="2">Thông tin phiếu mượn sách</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th scope="row">Tên độc giả</th>
+                        <td>@Model.GetType().GetProperty("HotenDG").GetValue(Model, null)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ngày mượn</th>
+                        <td>@Model.GetType().GetProperty("NgMuon").GetValue(Model, null)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Mã sách</th>
+                        <th>Tên sách</th>
+                        <th>Thể loại</th>
+                        <th>Tác giả</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var sach in ViewBag.Sach)
+                    {
+                    <tr>
+                        
+                        <td>@sach.GetType().GetProperty("IdSach").GetValue(sach, null)</td>
+                        <td>@sach.GetType().GetProperty("TenSach").GetValue(sach, null)</td>
+                        <td>@sach.GetType().GetProperty("TheLoai").GetValue(sach, null)</td>
+                        <td>
+                           
+                                @foreach (var tg in @sach.GetType().GetProperty("TacGia").GetValue(sach, null))
+                                {
+                                     @tg
+                                    // Console.WriteLine("{0}, ", tg);
+                                } 
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<a asp-action="Index">Trở về trang danh sách</a>
+<style>
+    .table tbody th {
+        width: 350px
+    }
+</style>
