@@ -64,7 +64,7 @@ namespace Test.Controllers
         {
             return View();
         }
-
+        //nothing
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
