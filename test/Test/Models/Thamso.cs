@@ -16,8 +16,7 @@ namespace Test.Models
         public int? Maxtuoi { get; set; }
         public int Thoihanthe { get; set; }
         [Display(Name = "Thời hạn thẻ")]
-        public int? Thoihanthe { get; set; }
-        [Display(Name = "Khoảng cách năm xuất bản")]
+
         public decimal? KcNamxb { get; set; }
         [Display(Name = "Số sách mượn lớn nhất")]
         public decimal? Maxsachmuon { get; set; }
