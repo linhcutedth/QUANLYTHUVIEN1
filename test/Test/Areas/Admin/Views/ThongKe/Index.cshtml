@@ -1,0 +1,192 @@
+﻿@model IEnumerable<Test.Models.Theloai>
+@{ Layout = "_Layout"; }
+@section Scripts{
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $("#datepicker").datepicker({
+            format: "mm-yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+        setTimeout(function () {
+            $('#msgA').fadeOut('slow');
+        }, 2000);
+        $('#tuoivathe').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("timThamSo")',
+                success: function (response) {
+                    $("#TuoiMin").val(response[0].mintuoi);
+                    $("#TuoiMax").val(response[0].maxtuoi);
+                    $("#The").val(response[0].thoihanthe);
+                }
+            })
+        })
+        $('#NamXB').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("timThamSo")',
+                success: function (response) {
+                    console.log(response)
+                    $("#NamXBinput").val(response[0].kcNamxb);
+                }
+            })
+        })
+        $('#NgaySach').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("timThamSo")',
+                success: function (response) {
+                    $("#SoNgay").val(response[0].maxngaymuon);
+                    $("#SoSach").val(response[0].maxsachmuon);
+                }
+            })
+        })
+    </script>
+}
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="msgA" class="@TempData["AlertType"]" role="alert">
+        @TempData["AlertMessage"]
+    </div>}
+<div class="container-fluid">
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Thống kê tình hình mượn sách theo thể loại
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form asp-action="TKTheLoai" method="post">
+                        <div>
+                            <label>Chọn tháng và năm cần thống kê</label>
+                            <input type="text" class="form-control" name="datepicker" id="datepicker" />
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary">Thống kê</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Thống kê sách trả trễ
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    Some placeholder content for the second accordion panel. This panel is hidden by default.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="tuoivathe">
+                        Thay đổi tuổi và thời hạn thẻ
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form asp-action="TDTuoiThe" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="tuoimin">Tuổi tối thiểu</label>
+                                <input type="number" name="TuoiMin" class="form-control" id="TuoiMin" min="0" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="tuoimin">Tuổi tối đa</label>
+                                <input type="number" name="TuoiMax" class="form-control" id="TuoiMax" min="0"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="tuoimin">Thời hạn thẻ</label>
+                                <input type="number" name="The" class="form-control" id="The" min="0"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10"></div>
+                            <div class="form-group col-md-2">
+                                <button type="submit" class="btn btn-primary">Thay đổi</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" id="NamXB" >
+                        Thay đổi khoảng cách năm xuất bản
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form asp-action="TDNamXB" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="NamXB">Khoảng cách năm xuất bản</label>
+                                <input type="number" name="NamXBinput" class="form-control" id="NamXBinput" min="0"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10"></div>
+                            <div class="form-group col-md-2">
+                                <button type="submit" class="btn btn-primary">Thay đổi</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" id="NgaySach">
+                       Thay đổi số lượng sách mượn và số ngày mượn sách
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form asp-action="TDNgaySach" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="SoNgay">Số ngày mượn sách</label>
+                                <input type="number" name="SoNgay" class="form-control" id="SoNgay" min="0"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="SoSach">Số lượng sách mượn</label>
+                                <input type="number" name="SoSach" class="form-control" id="SoSach" min="0"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10"></div>
+                            <div class="form-group col-md-2">
+                                <button type="submit" class="btn btn-primary">Thay đổi</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">

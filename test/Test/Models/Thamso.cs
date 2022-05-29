@@ -14,6 +14,7 @@ namespace Test.Models
         public int? Mintuoi { get; set; }
         [Display(Name = "Tuổi lớn nhất")]
         public int? Maxtuoi { get; set; }
+        public int Thoihanthe { get; set; }
         [Display(Name = "Thời hạn thẻ")]
         public int? Thoihanthe { get; set; }
         [Display(Name = "Khoảng cách năm xuất bản")]
