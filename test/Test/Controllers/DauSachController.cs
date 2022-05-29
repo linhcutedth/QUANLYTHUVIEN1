@@ -52,7 +52,6 @@ namespace Test.Controllers
         {
             List<Dausach> list = new List<Dausach>();
             //string connStr = _configuration.GetConnectionString("DefaultConnection");
-                        //string connStr = _configuration.GetConnectionString("DefaultConnection");
             string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
             MySqlConnection conn = new MySqlConnection(connStr);
             conn.Open();
