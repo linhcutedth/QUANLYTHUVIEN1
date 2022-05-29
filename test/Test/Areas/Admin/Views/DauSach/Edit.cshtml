@@ -3,86 +3,95 @@
 @{ ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; }
 
-<h1>Cập nhật</h1>
+<div class="container-fluid">
 
-<h4>Sản phẩm</h4>
-<hr />
-<div class="container">
-    <form asp-action="Edit" enctype="multipart/form-data">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="IdDausach" />
-        <div class="form-group">
-            <label asp-for="IdTheloai" class="control-label"></label>
-            <select name="IdTheloai" id="IdTheloai" class="form-control">
-                @foreach (Theloai tl in (List<Theloai>)ViewBag.TheLoai)
-                {
-                    if (tl.IdTheloai == Model.IdTheloai)
-                    {
-                        <option value="@tl.IdTheloai" selected>@tl.Tentheloai</option>
-                    }
-                    else
-                    {
-                        <option value="@tl.IdTheloai">@tl.Tentheloai</option>
-                    }
 
-                }
-            </select>
-            <span asp-validation-for="IdTheloai" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Tensach" class="control-label"></label>
-            <textarea asp-for="Tensach" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="Tensach" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input id="tongsocu" name="tongsocu" value="@Model.Tongso" class="form-control" type="hidden" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Tongso" class="control-label"></label>
-            <input asp-for="Tongso" class="form-control" min="@Model.Tongso" />
-            <span asp-validation-for="Tongso" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input asp-for="Dangchomuon" class="form-control" type="hidden" />
-        </div>
-        <div class="form-group">
-            <input asp-for="Sanco" class="form-control" type="hidden" />
-        </div>
-        <div class="form-group">
-            <input asp-for="Ngnhap" class="form-control" type="hidden" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Namxuatban" class="control-label"></label>
-            <input asp-for="Namxuatban" class="form-control"></input>
-            <span asp-validation-for="Namxuatban" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Trigia" class="control-label"></label>
-            <input asp-for="Trigia" class="form-control"></input>
-            <span asp-validation-for="Trigia" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Nhaxuatban" class="control-label"></label>
-            <input asp-for="Nhaxuatban" class="form-control" />
-            <span asp-validation-for="Nhaxuatban" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Hinhanh" class="control-label"></label>
-            <img src="@Model.Hinhanh" width="150px" height="100px" />
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
 
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">CẬP NHẬT ĐẦU SÁCH</h6>
         </div>
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" id="HinhAnhFile" name="HinhAnhFile">
-            <label class="custom-file-label" for="HinhAnhFile">Chọn hình ảnh</label>
+
+        <p></p>
+
+        <hr />
+        <div class="container">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdDausach" />
+                <div class="form-group">
+                    <label asp-for="IdTheloai" class="control-label"></label>
+                    <select name="IdTheloai" id="IdTheloai" class="form-control">
+                        @foreach (Theloai tl in (List<Theloai>)ViewBag.TheLoai)
+                        {
+                            if (tl.IdTheloai == Model.IdTheloai)
+                            {
+                                <option value="@tl.IdTheloai" selected>@tl.Tentheloai</option>
+ }
+                            else
+                            {
+                                <option value="@tl.IdTheloai">@tl.Tentheloai</option>
+}
+
+                        }
+                    </select>
+                    <span asp-validation-for="IdTheloai" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tensach" class="control-label"></label>
+                    <textarea asp-for="Tensach" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Tensach" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tongso" class="control-label"></label>
+                    <input asp-for="Tongso" class="form-control" />
+                    <span asp-validation-for="Tongso" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sanco" class="control-label"></label>
+                    <input asp-for="Sanco" class="form-control" />
+                    <span asp-validation-for="Sanco" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Dangchomuon" class="control-label"></label>
+                    <input asp-for="Dangchomuon" class="form-control"></input>
+                    <span asp-validation-for="Dangchomuon" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ngnhap" class="control-label"></label>
+                    <input asp-for="Ngnhap" class="form-control" />
+                    <span asp-validation-for="Ngnhap" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Namxuatban" class="control-label"></label>
+                    <input asp-for="Namxuatban" class="form-control"></input>
+                    <span asp-validation-for="Namxuatban" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nhaxuatban" class="control-label"></label>
+                    <input asp-for="Nhaxuatban" class="form-control" />
+                    <span asp-validation-for="Nhaxuatban" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Hinhanh" class="control-label"></label>
+                    <img src="@Model.Hinhanh" width="150px" height="100px" />
+
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="HinhAnhFile" name="HinhAnhFile">
+                    <label class="custom-file-label" for="HinhAnhFile">Chọn hình ảnh</label>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                </div>
+            </form>
         </div>
-        <div class="form-group mt-3">
-            <input type="submit" value="Lưu" class="btn btn-primary" />
+        <div>
+            <a asp-action="Index" class="mt-3">
+                Trở về trang danh sách
+            </a>
         </div>
-    </form>
-</div>
-<div>
-    <a asp-action="Index" class="mt-3">
-        Trở về trang danh sách
-    </a>
-</div>
+        </div>
 

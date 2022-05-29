@@ -4,89 +4,96 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
   }
 
-<h1>Chi tiết</h1>
+<div class="container-fluid">
 
-<div>
-    <h4>Đầu sách</h4>
-    <hr />
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">CHI TIẾT ĐẦU SÁCH</h6>
+        </div>
+
+        <p></p>
 
 
 
-    <div class="p-4">
-        <div class="container">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th colspan="2">Thông tin đầu sách</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="p-4">
+            <div class="container">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Thông tin đầu sách</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                    <tr>
-                        <th scope="row">Tên sách</th>
-                        <td>@Model.GetType().GetProperty("Tensach").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Trị giá</th>
-                        <td>@Model.GetType().GetProperty("Trigia").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Tổng số</th>
-                        <td>@Model.GetType().GetProperty("Tongso").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Đang cho mượn</th>
-                        <td>@Model.GetType().GetProperty("Dangchomuon").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Sẵn có</th>
-                        <td>@Model.GetType().GetProperty("Sanco").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Nhà xuất bản</th>
-                        <td>@Model.GetType().GetProperty("Nhaxuatban").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Năm xuất bản</th>
-                        <td>@Model.GetType().GetProperty("Namxuatban").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Ngày nhập</th>
-                        <td>@Model.GetType().GetProperty("Ngnhap").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Thể loại</th>
-                        <td>@Model.GetType().GetProperty("Tentheloai").GetValue(Model, null)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Tác giả</th>
-                        <td>
-                            @foreach (var item in ViewBag.TacGia)
-                            {
-                            <span value="@item.GetType().GetProperty("IdTacgia").GetValue(item, null)">@item.GetType().GetProperty("Tentg").GetValue(item, null)</span>
-                            <br/>
-                        }
+                        <tr>
+                            <th scope="row">Tên sách</th>
+                            <td>@Model.GetType().GetProperty("Tensach").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Trị giá</th>
+                            <td>@Model.GetType().GetProperty("Trigia").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tổng số</th>
+                            <td>@Model.GetType().GetProperty("Tongso").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Đang cho mượn</th>
+                            <td>@Model.GetType().GetProperty("Dangchomuon").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sẵn có</th>
+                            <td>@Model.GetType().GetProperty("Sanco").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nhà xuất bản</th>
+                            <td>@Model.GetType().GetProperty("Nhaxuatban").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Năm xuất bản</th>
+                            <td>@Model.GetType().GetProperty("Namxuatban").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ngày nhập</th>
+                            <td>@Model.GetType().GetProperty("Ngnhap").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Thể loại</th>
+                            <td>@Model.GetType().GetProperty("Tentheloai").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tác giả</th>
+                            <td>
+                                @foreach (var item in ViewBag.TacGia)
+                                {
+                                    <span value="@item.GetType().GetProperty("IdTacgia").GetValue(item, null)">@item.GetType().GetProperty("Tentg").GetValue(item, null)</span>
+                                    <br />
+                                }
                             </td>
 
                         </tr>
-                    <tr>
-                        <th scope="row">Hình ảnh</th>
-                        <td><img src="@Model.GetType().GetProperty("Hinhanh").GetValue(Model, null)" width="150px" height="100px" /></td>
-                    </tr>
-                </tbody>
-            </table>
+                        <tr>
+                            <th scope="row">Hình ảnh</th>
+                            <td><img src="@Model.GetType().GetProperty("Hinhanh").GetValue(Model, null)" width="150px" height="100px" /></td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
-            <div>
-                <a asp-action="Edit" asp-route-id="@Model.GetType().GetProperty("IdDausach").GetValue(Model, null)" class="btn btn-success">Cập nhật</a>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.GetType().GetProperty("IdDausach").GetValue(Model, null)" class="btn btn-success">Cập nhật</a>
+                </div>
             </div>
         </div>
+        </div>
     </div>
-</div>
 
-<a asp-action="Index">Trở về trang danh sách</a>
-<style>
-    .table tbody th {
-        width: 350px
-    }
-</style>
+    <a asp-action="Index">Trở về trang danh sách</a>
+    <style>
+        .table tbody th {
+            width: 350px
+        }
+    </style>
