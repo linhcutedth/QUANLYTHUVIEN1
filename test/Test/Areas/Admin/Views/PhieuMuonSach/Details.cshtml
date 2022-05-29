@@ -1,0 +1,80 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = "ViewDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">CHI TIẾT PHIẾU MƯỢN SÁCH</h6>
+        </div>
+
+        <div class="p-4">
+            <div class="container">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">Thông tin phiếu mượn sách</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <th scope="row">Tên độc giả</th>
+                            <td>@Model.GetType().GetProperty("HotenDG").GetValue(Model, null)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ngày mượn</th>
+                            <td>@Model.GetType().GetProperty("NgMuon").GetValue(Model, null)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th width="15%">Mã sách</th>
+                            <th width="35%">Tên sách</th>
+                            <th width="15%">Thể loại</th>
+                            <th width="35%">Tác giả</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var sach in ViewBag.Sach)
+                        {
+                            <tr>
+
+                                <td>@sach.GetType().GetProperty("IdSach").GetValue(sach, null)</td>
+                                <td>@sach.GetType().GetProperty("TenSach").GetValue(sach, null)</td>
+                                <td>@sach.GetType().GetProperty("TheLoai").GetValue(sach, null)</td>
+                                <td>
+
+                                    @foreach (var tg in @sach.GetType().GetProperty("TacGia").GetValue(sach, null))
+                                    {
+                                        @tg;
+                                        Console.WriteLine("{0}, ", tg);
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <a asp-action="Index">Trở về trang danh sách</a>
+    <style>
+        .table tbody th {
+            width: 350px
+        }
+    </style>
