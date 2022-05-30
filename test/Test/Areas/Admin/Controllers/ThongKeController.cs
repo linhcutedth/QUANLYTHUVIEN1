@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Test.Models;
 using Test.Data;
-using Microsoft.Extensions.Configuration;
+using Test.Models;
 
 namespace Test.Areas.Admin.Controllers
 {
@@ -191,6 +190,50 @@ namespace Test.Areas.Admin.Controllers
                 TempData["AlertType"] = "alert alert-danger";
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        [HttpPost]
+        public IActionResult TKSachTraTre(string datepicker)
+        {
+            string[] arrListStr = datepicker.Split('-');
+            int month = Int32.Parse(arrListStr[0]);
+            int year = Int32.Parse(arrListStr[1]);
+            Console.WriteLine(month);
+            Console.WriteLine(year);
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            //string connStr = _configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connStr);
+                conn.Open();
+                string query = @"select ds.TENSACH, s.ID_SACH, DATE_ADD(NGTRA,INTERVAL -SONGMUON DAY), SONGMUON - MAXNGAYMUON as SoNgTraTre
+                            from phieutrasach pts, chitiet_pts ct, sach s, dausach ds, thamso ts
+                            where pts.id_pts = ct.id_pts 
+                            and ct.id_sach = s.id_sach
+                            and s.id_dausach = ds.id_dausach
+                            and month(NGTRA) = @month and year(NGTRA) = @year
+                            and SONGMUON > ts.MAXNGAYMUON";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+                List<SachTraTre> list = new List<SachTraTre>();
+                int i = 1;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new SachTraTre()
+                        {
+                            STT = i,
+                            Tensach = reader[0].ToString() + " - " + reader[1].ToString(),
+                            Ngmuon = (DateTime)reader[2],
+                            Songtratre = (decimal)reader[3],
+                        });
+                        i++;
+                    }
+                ViewBag.Month = month;
+                ViewBag.Year = year;
+                return View(list);
+            }
+
         }
 
     }

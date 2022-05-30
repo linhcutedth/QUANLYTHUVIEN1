@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Test.Models.SachTraTre>
+@{ ViewData["Title"] = "ThongKePost"; }
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.1/html2pdf.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.1/html2pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.1/html2pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script>$("#printPDF").click(function () {
+            var element = document.getElementById('invoice-container');
+            html2pdf(element)
+        })</script>
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Báo cáo thống kê sách trả trễ</h6>
+        </div>
+
+        <p></p>
+        <div class="card-body" id="invoice-container">
+            <div class="row align-items-center">
+                <div class="col-sm-7 text-sm-start mb-3 mb-sm-0">
+                    <div class="sidebar-brand-text mx-3"><strong>Thư viện</strong></div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-end">
+                    <h5 class="text-7 mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Báo cáo thống kê sách trả trễ</font></font></h5>
+                    <strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ngày: </font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@ViewBag.Month/@ViewBag.Year</font></font>
+                </div>
+            </div>
+            <table class="table table-bordered ">
+                <thead>
+                    <tr class="table-warning">
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên sách</th>
+                        <th scope="col">Ngày mượn</th>
+                        <th scope="col">Số ngày trả trễ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model)
+                    {
+
+        <tr>
+            <td>@i.STT</td>
+            <td>@i.Tensach</td>
+            <td>@i.Ngmuon.ToString("dd/MM/yyyy")</td>
+            <td>@i.Songtratre</td>
+        </tr>
+}
+
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+    <div class="text-center mt-2">
+
+        <div class="btn-group btn-group-sm d-print-none">
+            <a id="printPDF" class="btn btn-success">Xuất PDF</a>
+        </div>
+    </div>
+</div>
+
+
