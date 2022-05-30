@@ -57,8 +57,8 @@
 
                                     @foreach (var tg in @sach.GetType().GetProperty("TacGia").GetValue(sach, null))
                                     {
-                                        @tg;
-                                        Console.WriteLine("{0}, ", tg);
+                                        <span>@tg.GetType().GetProperty("Tentg").GetValue(tg, null)</span>
+                                        <br />
                                     }
                                 </td>
                             </tr>
