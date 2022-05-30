@@ -1,0 +1,87 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = "PhieuThu";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>PhieuThu</h1>
+
+<h4>Phieuthutienphat</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PhieuThu">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdPts" class="control-label"></label>
+                <select asp-for="IdPts" class ="form-control" asp-items="ViewBag.IdPts"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tongno" class="control-label"></label>
+                <input asp-for="Tongno" class="form-control" />
+                <span asp-validation-for="Tongno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conlai" class="control-label"></label>
+                <input asp-for="Conlai" class="form-control" />
+                <span asp-validation-for="Conlai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Phiếu thu tiền phạt</h6>
+        </div>
+
+        <p></p>
+       
+        <div class="container">
+
+            <form asp-action="CreatePhieuThu" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="IdPts" class="form-control" id="IdPts" value="@Model.GetType().GetProperty("IdPts").GetValue(Model, null)" />
+                <div class="form-row">
+                    <label> Họ tên độc giả</label>
+                    <input type="text" name="hoten" class="form-control" id="hoten" value="@Model.GetType().GetProperty("HotenDG").GetValue(Model, null)" readonly />
+                </div>
+                <div class="form-row">
+                    <label> Tổng nợ</label>
+                    <input type="number" name="Tongno" class="form-control" id="Tongno" value="@Model.GetType().GetProperty("TongNo").GetValue(Model, null)" readonly />
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="sotienthu">Số tiền thu</label>
+                        <input type="number" name="sotienthu" class="form-control" id="sotienthu" max="@Model.GetType().GetProperty("TongNo").GetValue(Model, null)" required />
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-10"></div>
+                    <div class="form-group col-md-2">
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
