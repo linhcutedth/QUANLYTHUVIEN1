@@ -161,7 +161,7 @@ namespace Test.Areas.Admin.Controllers
             int max_sachmuon = maxsachmuon();
             if (demsosachmuon(iddocgia) + arrListStr.Length - 1 > max_sachmuon)
             {
-                TempData["AlertMessage"] = "Mượn hơn" + max_sachmuon + " cuốn rồi ông ơi";
+                TempData["AlertMessage"] = "Mượn hơn " + max_sachmuon + " cuốn rồi ông ơi";
                 TempData["AlertType"] = "alert alert-danger";
                 string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
                 MySqlConnection conn = new MySqlConnection(connStr);
