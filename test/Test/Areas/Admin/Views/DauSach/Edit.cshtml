@@ -29,11 +29,11 @@
                             if (tl.IdTheloai == Model.IdTheloai)
                             {
                                 <option value="@tl.IdTheloai" selected>@tl.Tentheloai</option>
- }
+                            }
                             else
                             {
                                 <option value="@tl.IdTheloai">@tl.Tentheloai</option>
-}
+                            }
 
                         }
                     </select>
@@ -45,24 +45,21 @@
                     <span asp-validation-for="Tensach" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <input id="tongsocu" name="tongsocu" value="@Model.Tongso" class="form-control" type="hidden" />
+                </div>
+                <div class="form-group">
                     <label asp-for="Tongso" class="control-label"></label>
-                    <input asp-for="Tongso" class="form-control" />
+                    <input asp-for="Tongso" class="form-control" min="@Model.Tongso" />
                     <span asp-validation-for="Tongso" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Sanco" class="control-label"></label>
-                    <input asp-for="Sanco" class="form-control" />
-                    <span asp-validation-for="Sanco" class="text-danger"></span>
+                    <input asp-for="Sanco" class="form-control" type="hidden" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Dangchomuon" class="control-label"></label>
-                    <input asp-for="Dangchomuon" class="form-control"></input>
-                    <span asp-validation-for="Dangchomuon" class="text-danger"></span>
+                    <input asp-for="Dangchomuon" class="form-control" type="hidden" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Ngnhap" class="control-label"></label>
-                    <input asp-for="Ngnhap" class="form-control" />
-                    <span asp-validation-for="Ngnhap" class="text-danger"></span>
+                    <input asp-for="Ngnhap" class="form-control" type="hidden" />
                 </div>
                 <div class="form-group">
                     <label asp-for="Namxuatban" class="control-label"></label>
@@ -73,6 +70,11 @@
                     <label asp-for="Nhaxuatban" class="control-label"></label>
                     <input asp-for="Nhaxuatban" class="form-control" />
                     <span asp-validation-for="Nhaxuatban" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Trigia" class="control-label"></label>
+                    <input asp-for="Trigia" class="form-control"></input>
+                    <span asp-validation-for="Trigia" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Hinhanh" class="control-label"></label>
