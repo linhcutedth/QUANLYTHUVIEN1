@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Test.Data;
+using Test.Models;
 
 namespace Test.Areas.Admin.Controllers
 {
@@ -31,7 +33,7 @@ namespace Test.Areas.Admin.Controllers
         {
             var lapTopContext = _context.Phieutrasach.Include(s => s.IdDgNavigation);
             ViewBag.TheDocGia = _context.Thedocgia.ToList();
-            ViewBag.Sach = _context.Sach.ToList();
+            ViewBag.Sach = _context.Sach.Where(c => c.TinhTrang == "đang cho mượn").ToList();
             return View(await _context.Phieutrasach.ToListAsync());
         }
 
@@ -55,17 +57,17 @@ namespace Test.Areas.Admin.Controllers
                                      IdSach = c.IdSach,
                                      SoNgMuon = c.Songmuon,
                                      TienPhat = c.Tienphat,
-                                     NgayMuon = c.IdSachNavigation.ChitietPms.Where(t => t.Tinhtrang == "chưa trả")
-                                     .Select(t => new
-                                     {
-                                         NgMuon = t.IdPmsNavigation.Ngmuon,
-                                     })
+                                     //NgayMuon = c.IdSachNavigation.ChitietPms.Where(t => t.Tinhtrang == "chưa trả")
+                                     //.Select(t => new
+                                     //{
+                                     //    NgMuon = t.IdPmsNavigation.Ngmuon,
+                                     //})
                                  }).ToList()
 
                              }).Single();
 
-                
-        
+
+
 
             ViewBag.ChitietPts = pts.ChitietPts;
             if (pts == null)
@@ -78,25 +80,34 @@ namespace Test.Areas.Admin.Controllers
         }
 
         // GET: PhieuTraController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PhieuTraController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("IdDg")] Phieutrasach pts, string NgTra, string txtSach)
         {
-            try
+            if (String.IsNullOrEmpty(txtSach))
             {
+                TempData["AlertMessage"] = "Phải nhấn nút áp dụng ở mục thêm sách";
+                TempData["AlertType"] = "alert alert-danger";
+            }
+            else if (ModelState.IsValid)
+            {
+                pts.Tienphatkinay = 0;
+                pts.Tongno = 0;
+                pts.Ngtra = Convert.ToDateTime(NgTra);
+                _context.Add(pts);
+                await _context.SaveChangesAsync();
+                TempData["AlertMessage"] = "Tạo thành công";
+                TempData["AlertType"] = "alert alert-success";
+                
+                xuly_pts_xtpts(pts.IdPts, txtSach, pts.IdDg, Convert.ToDateTime(NgTra));
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewData["docgianav"] = new SelectList(_context.Thedocgia, "IdDg", "IdDg", pts.IdDg);
+            return RedirectToAction(nameof(Index));
         }
+
+
 
         // GET: PhieuTraController/Edit/5
         public ActionResult Edit(int id)
@@ -139,6 +150,107 @@ namespace Test.Areas.Admin.Controllers
                 return View();
             }
         }
-       
-    } 
+        private void xuly_pts_xtpts(int idpts, string txtSach, int IdDg, DateTime NgayTra)
+        {
+            string[] arrListStr = txtSach.Split('&');
+            for (int i = 0; i < arrListStr.Length - 1; i++)
+            {
+                int idsach = Int32.Parse(arrListStr[i]);
+                // them_cttg_sach(idpms, idsach);
+                them_ctpts_sach(idpts, idsach, IdDg, NgayTra);
+                int iddausach = getdausach(idsach);
+                capnhat_ctpms(idsach);
+                capnhatcuonsach(idsach);
+                capnhatdausach(iddausach);
+                
+
+            }
+        }
+        private void capnhat_ctpms( int idsach)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            // Câu truy vấn gồm: chèn dữ liệu vào và lấy định danh(Primary key) mới chèn vào
+            string query = @"update chitiet_pms set tinhtrang = 'đã trả' where id_sach = @id_sach;";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);         
+            cmd.Parameters.AddWithValue("@id_sach", idsach);
+            cmd.ExecuteNonQuery(); // Thi hành SQL trả về giá trị đầu tiên
+
+        }
+        private void them_ctpts_sach(int idpts, int idsach, int IdDg, DateTime NgayTra)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            // Câu truy vấn gồm: chèn dữ liệu vào và lấy định danh(Primary key) mới chèn vào
+            string query = @"INSERT INTO chitiet_pts VALUES (@id_pts, @id_sach,0,0); 
+                             call xuli (@id_sach, @id_dg, @ngtra, @id_pts); ";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_pts", idpts);
+            cmd.Parameters.AddWithValue("@id_sach", idsach);
+            cmd.Parameters.AddWithValue("@id_dg", IdDg);
+            cmd.Parameters.AddWithValue("@ngtra", NgayTra);
+
+
+            cmd.ExecuteScalar(); // Thi hành SQL trả về giá trị đầu tiên
+
+        }
+        public void capnhatdausach(int iddausach)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            string query = @"update dausach set dangchomuon = dangchomuon - 1, sanco = sanco + 1 where id_dausach = @id_dausach";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_dausach", iddausach);
+
+            cmd.ExecuteNonQuery();
+
+        }
+        public void capnhatcuonsach(int idsach)
+        {
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            string query = @"update sach set tinhtrang = 'sẵn có' where id_sach = @id_sach";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_sach", idsach);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public int getdausach(int idsach)
+        {
+            int kq = 0;
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            string query = @"select id_dausach from sach where id_sach = @id_sach";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_sach", idsach);
+
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+
+                    kq = Convert.ToInt32(reader["id_dausach"]);
+                };
+
+            }
+            return kq;
+
+        }
+    }
 }

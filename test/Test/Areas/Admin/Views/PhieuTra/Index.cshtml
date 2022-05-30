@@ -6,7 +6,6 @@
 }
 
 @*<h1>View</h1>
-
     <p>
         <a asp-action="Create">Create New</a>
     </p>
@@ -63,6 +62,7 @@
             $('#dataTable').DataTable();
         });
         $(function () {
+            $("#Hotendg").select2();
             $('#IdSach').select2({
                 language: {
                     noResults: function () {
@@ -96,7 +96,7 @@
         $('#xlnhapngay').on('blur', function () {
             var date = $(this).val();
             console.log(date)
-            $('#NgMuon').val(date);
+            $('#Ngtra').val(date);
         })
         $('body').on('click', '#btnSach', function (e) {
             e.preventDefault();
@@ -109,7 +109,6 @@
             }
             $('#txtSach').val(temp);
         });
-
     </script>
 
 }
@@ -128,35 +127,22 @@
         <div class="container">
 
             <form asp-action="Create" method="post" enctype="multipart/form-data">
-                <input type="hidden" class="form-control" id="IdDg" name="Masp" value="1">
+                @*<input type="hidden" class="form-control" id="IdDg" name="Masp" value="1">*@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="Hotendg">Độc giả</label>
-                                <select name="Hotendg" id="Hotendg" class="form-control">
-                                    @foreach (Thedocgia tdg in (List<Thedocgia>)ViewBag.TheDocGia)
+                                <label for="Hotendg">Tên độc giả</label>
+                                <select name="idDg" id="IdDg" class="form-control">
+                                    @foreach (Thedocgia dg in (List<Thedocgia>)ViewBag.Thedocgia)
                                     {
-                                        <option value="@tdg.IdDg">@tdg.Hotendg</option>
+                                        <option value="@dg.IdDg">@dg.Hotendg</option>
                                     }
                                 </select>
                             </div>
-                            <div class="input-group mb-3">
-                                <label class="col-md-12">Sách</label>
-                                <select class="custom-select" name="IdSach" id="IdSach" multiple="multiple">
-                                    @foreach (Sach s in (List<Sach>)ViewBag.Sach)
-                                    {
-                                        <option value="@s.IdSach">@s.IdSach</option>
-                                    }
-                                </select>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="btntg">Áp dụng</button>
-                                </div>
-                            </div>
-
-
                         </div>
-
+                    </div>
+                    <div class="col-md-12">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Ngày trả</label>
@@ -164,25 +150,37 @@
                             </div>
                             <input type="hidden" class="form-control" id="Ngtra" name="Ngtra" />
                         </div>
+                    </div>
+                    <div class="col-sm-9">
                         <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Tiền phạt kì này</label>
-                                <input type="text" class="form-control" id="Tienphat" name="Tienphat" />
+                            <div class="input-group mb-3">
+                                <label class="col-md-12">Sách</label>
+                                <select class="custom-select" name="IdSach" id="IdSach" multiple="multiple">
+                                    @foreach (Sach sach in (List<Sach>)ViewBag.Sach)
+                                    {
+                                        <option value="@sach.IdSach">@sach.IdSach</option>
+                                    }
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" style="background-color: white" type="button" id="btnSach">Áp dụng</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Tổng nợ</label>
-                                <input type="text" class="form-control" id="Tongno" name="Tongno" required />
-                            </div>
-                        </div>
+                        <input type="hidden" class="form-control" id="txtSach" name="txtSach" />
+                    </div>
+
+                  
+                    <div class="col-md-12">
+
                         <div class="form-row">
                             <div class="form-group col-md-10"></div>
                             <div class="form-group col-md-2">
                                 <button type="submit" class="btn btn-primary">Thêm</button>
                             </div>
                         </div>
+
                     </div>
+
 
                 </div>
             </form>
@@ -201,10 +199,10 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th width="20%">Họ tên độc giả</th>
                             <th width="20%">Ngày trả</th>
                             <th width="20%">Tiền phạt kì này</th>
                             <th width="20%">Tổng nợ</th>
-                            <th width="20%">Họ tên độc giả</th>
                             <th width="20%">Tác vụ</th>
                         </tr>
                     </thead>
@@ -212,6 +210,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdDgNavigation.Hotendg)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Ngtra)
                                 </td>
@@ -222,12 +223,9 @@
                                     @Html.DisplayFor(modelItem => item.Tongno)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdDgNavigation.Hotendg)
-                                </td>
-                                <td>
                                     @*<a asp-action="Edit" asp-route-id="@item.IdPts" class="btn btn-secondary">Edit</a>*@
-                                    <a asp-action="Details" asp-route-id="@item.IdPts" class="btn btn-info">Details</a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdPts" class="btn btn-danger delete">Delete</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdPts" class="btn btn-info">Chi tiết</a>
+                                    <a asp-action="PhieuThu" asp-route-id="@item.IdPts" class="btn btn-danger delete">Thêm phiếu thu tiền phạt</a>
                                 </td>
                             </tr>
                         }
@@ -264,4 +262,3 @@
             width: 813px !important;
         }
     </style>
-
