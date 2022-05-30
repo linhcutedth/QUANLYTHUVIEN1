@@ -1,0 +1,106 @@
+﻿@*@model object*@
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+@*<div>
+    <h4>Phieutrasach</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ngtra)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ngtra)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tienphatkinay)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tienphatkinay)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tongno)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tongno)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdDgNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdDgNavigation.IdDg)
+        </dd>
+    </dl>
+</div>*@
+
+<div class="p-4">
+    <div class="container">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="2">Thông tin phiếu trả</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Họ tên độc giả</th>
+                    <td>@Model.GetType().GetProperty("HotenDG").GetValue(Model, null)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ngày trả</th>
+                    <td>@Model.GetType().GetProperty("NgTra").GetValue(Model, null)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Tiền phạt kì này</th>
+                    <td>@Model.GetType().GetProperty("TienPhatKiNay").GetValue(Model, null)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Tổng nợ</th>
+                    <td>@Model.GetType().GetProperty("TongNo").GetValue(Model, null)</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Mã sách</th>
+                    <th>Ngày mượn</th>
+                    <th>Số ngày mượn</th>
+                    <th>Tiền phạt</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var pts in ViewBag.ChitietPts)
+                {
+                <tr>
+
+                    <td>@pts.GetType().GetProperty("IdSach").GetValue(pts, null)</td>
+                    <td>
+                        @foreach (var tg in @pts.GetType().GetProperty("NgayMuon").GetValue(pts, null))
+                        {
+                            @tg.GetType().GetProperty("NgMuon").GetValue(tg, null);
+                            Console.WriteLine("{0}ok, ", tg);
+                        }
+
+                    </td>
+                    <td>@pts.GetType().GetProperty("SoNgMuon").GetValue(pts, null)</td>
+                    <td>@pts.GetType().GetProperty("TienPhat").GetValue(pts, null)</td>
+                    <td>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        <div>
+            @*<a asp-action="Edit" asp-route-id="@Model.IdPts" class="btn btn-success">Edit</a> |*@
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
