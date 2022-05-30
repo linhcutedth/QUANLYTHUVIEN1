@@ -63,6 +63,7 @@
             $('#dataTable').DataTable();
         });
         $(function () {
+            $("#Hotendg").select2();
             $('#IdSach').select2({
                 language: {
                     noResults: function () {
@@ -96,7 +97,7 @@
         $('#xlnhapngay').on('blur', function () {
             var date = $(this).val();
             console.log(date)
-            $('#NgMuon').val(date);
+            $('#NgTra').val(date);
         })
         $('body').on('click', '#btnSach', function (e) {
             e.preventDefault();
@@ -133,7 +134,7 @@
                     <div class="col-md-12">
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="Hotendg">Độc giả</label>
+                                <label for="Hotendg">Tên độc giả</label>
                                 <select name="Hotendg" id="Hotendg" class="form-control">
                                     @foreach (Thedocgia tdg in (List<Thedocgia>)ViewBag.TheDocGia)
                                     {
@@ -141,22 +142,9 @@
                                     }
                                 </select>
                             </div>
-                            <div class="input-group mb-3">
-                                <label class="col-md-12">Sách</label>
-                                <select class="custom-select" name="IdSach" id="IdSach" multiple="multiple">
-                                    @foreach (Sach s in (List<Sach>)ViewBag.Sach)
-                                    {
-                                        <option value="@s.IdSach">@s.IdSach</option>
-                                    }
-                                </select>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="btntg">Áp dụng</button>
-                                </div>
-                            </div>
-
-
                         </div>
-
+                        </div>
+                    <div class="col-md-12">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Ngày trả</label>
@@ -164,7 +152,26 @@
                             </div>
                             <input type="hidden" class="form-control" id="Ngtra" name="Ngtra" />
                         </div>
-                        <div class="form-row">
+                    </div>
+                        <div class="col-sm-9">
+                            <div class="form-row">
+                                <div class="input-group mb-3">
+                                    <label class="col-md-12">Sách</label>
+                                    <select class="custom-select" name="IdSach" id="IdSach" multiple="multiple">
+                                        @foreach (Sach sach in (List<Sach>)ViewBag.Sach)
+                                        {
+                                            <option value="@sach.IdSach">@sach.IdSach</option>
+                                        }
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" style="background-color: white" type="button" id="btnSach">Áp dụng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" class="form-control" id="txtSach" name="txtSach" />
+                        </div>
+                        
+                        @*<div class="form-row">
                             <div class="form-group col-md-12">
                                 <label class="control-label">Tiền phạt kì này</label>
                                 <input type="text" class="form-control" id="Tienphat" name="Tienphat" />
@@ -175,14 +182,18 @@
                                 <label class="control-label">Tổng nợ</label>
                                 <input type="text" class="form-control" id="Tongno" name="Tongno" required />
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-10"></div>
-                            <div class="form-group col-md-2">
-                                <button type="submit" class="btn btn-primary">Thêm</button>
-                            </div>
+                        </div>*@
+                <div class="col-md-12">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-10"></div>
+                        <div class="form-group col-md-2">
+                            <button type="submit" class="btn btn-primary">Thêm</button>
                         </div>
                     </div>
+
+                </div>
+                    
 
                 </div>
             </form>
@@ -201,10 +212,10 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th width="20%">Họ tên độc giả</th>
                             <th width="20%">Ngày trả</th>
                             <th width="20%">Tiền phạt kì này</th>
                             <th width="20%">Tổng nợ</th>
-                            <th width="20%">Họ tên độc giả</th>
                             <th width="20%">Tác vụ</th>
                         </tr>
                     </thead>
@@ -213,6 +224,9 @@
                         {
                             <tr>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.IdDgNavigation.Hotendg)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Ngtra)
                                 </td>
                                 <td>
@@ -220,9 +234,6 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Tongno)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IdDgNavigation.Hotendg)
                                 </td>
                                 <td>
                                     @*<a asp-action="Edit" asp-route-id="@item.IdPts" class="btn btn-secondary">Edit</a>*@
