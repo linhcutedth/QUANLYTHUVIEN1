@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Test.Models.Dausach>
+@{ Layout = "_Layout"; }
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách đầu sách (Tìm kiếm)</h6>
+        </div>
+
+        <p></p>
+
+        <div class="container">
+
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th width="40%">Tên sách</th>
+                            <th width="20%">Thể loại</th>
+                            <th width="40%">Tác giả</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Tensach</td>
+                                <td>@item.IdTheloaiNavigation.Tentheloai</td>
+                                <td>
+                                    @foreach (var tg in item.ChitietDausachTacgia)
+                                    {
+                                        <span>@tg.IdTacgiaNavigation?.Tentg</span>
+                                        <br />
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-4 btn" >
+            <a href="@Url.Action("ExportToExcel","TimKiem")" class="btn btn-success" >Tải Excel</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn {
+        display:flex;
+        justify-content:center;
+    }
+</style>
+

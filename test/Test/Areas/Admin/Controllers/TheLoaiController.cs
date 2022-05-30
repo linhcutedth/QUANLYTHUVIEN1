@@ -139,7 +139,7 @@ namespace Test.Areas.Admin.Controllers
             }
             catch
             {
-                TempData["AlertMessage"] = "Xóa không thành công";
+                TempData["AlertMessage"] = "Xóa không thành công vì đã tồn tại sách của thể loại này";
                 TempData["AlertType"] = "alert alert-danger";
                 return RedirectToAction(nameof(Index));
             }
