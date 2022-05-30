@@ -5,7 +5,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-        $("#datepicker").datepicker({
+        $("#datepicker1").datepicker({
+            format: "mm-yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+        $("#datepicker2").datepicker({
             format: "mm-yyyy",
             startView: "months",
             minViewMode: "months"
@@ -68,7 +73,7 @@
                     <form asp-action="TKTheLoai" method="post">
                         <div>
                             <label>Chọn tháng và năm cần thống kê</label>
-                            <input type="text" class="form-control" name="datepicker" id="datepicker" />
+                            <input type="text" class="form-control" name="datepicker" id="datepicker1" />
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-10"></div>
@@ -90,7 +95,18 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
-                    Some placeholder content for the second accordion panel. This panel is hidden by default.
+                    <form asp-action="TKSachTraTre" method="post">
+                        <div>
+                            <label>Chọn tháng và năm cần thống kê</label>
+                            <input type="text" class="form-control" name="datepicker" id="datepicker2" />
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary">Thống kê</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
