@@ -90,7 +90,7 @@ namespace Test.Areas.Admin.Controllers
         {
             if (String.IsNullOrEmpty(txtSach))
             {
-                TempData["AlertMessage"] = "Phải nhấn nút áp dụng ở mục thêm tác giả";
+                TempData["AlertMessage"] = "Phải nhấn nút áp dụng ở mục thêm sách";
                 TempData["AlertType"] = "alert alert-danger";
             }
             else if (ModelState.IsValid)
@@ -158,9 +158,10 @@ namespace Test.Areas.Admin.Controllers
         {
             string[] arrListStr = txtSach.Split('&');
             int iddocgia = getdocgia(idpms);
-            if (demsosachmuon(iddocgia) + arrListStr.Length - 1 > 5)
+            int max_sachmuon = maxsachmuon();
+            if (demsosachmuon(iddocgia) + arrListStr.Length - 1 > max_sachmuon)
             {
-                TempData["AlertMessage"] = "Mượn hơn 5 cuốn rồi ông ơi";
+                TempData["AlertMessage"] = "Mượn hơn" + max_sachmuon + " cuốn rồi ông ơi";
                 TempData["AlertType"] = "alert alert-danger";
                 string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
                 MySqlConnection conn = new MySqlConnection(connStr);
@@ -298,6 +299,32 @@ namespace Test.Areas.Admin.Controllers
                 {
 
                     kq = Convert.ToInt32(reader["sl"]);
+                };
+
+            }
+            return kq;
+        }
+
+        public int maxsachmuon()
+        {
+            int kq = 0;
+
+            string connStr = "server=127.0.0.1;port=3306;user=root;password=admin;database=QLTV";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+
+
+            string query = @"select maxsachmuon from thamso";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+           
+
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+
+                    kq = Convert.ToInt32(reader["maxsachmuon"]);
                 };
 
             }
