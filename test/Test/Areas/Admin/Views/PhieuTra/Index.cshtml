@@ -1,0 +1,267 @@
+﻿@model IEnumerable<Test.Models.Phieutrasach>
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>View</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ngtra)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tienphatkinay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tongno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdDg)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngtra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tienphatkinay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tongno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdDg)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdPts">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdPts">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdPts">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
+
+
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+        $(function () {
+            $('#IdSach').select2({
+                language: {
+                    noResults: function () {
+                        return null
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            })
+        })
+    setTimeout(function () {
+        $('#msgA').fadeOut('slow');
+    }, 2000);
+    $('table .delete').on('click', function () {
+        var id = $(this).data("id");
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("timDausach")',
+                data: { "id": id },
+                success: function (response) {
+                    console.log(response)
+                    $("#DeleteRecord #id").val(response.idDausach);
+                    $("#DeleteRecord #Tensach").val(response.tensach);
+                    $("#DeleteRecord #Tongso").val(response.tongso);
+                    $("#DeleteRecord #Dangchomuon").val(response.dangchomuon);
+                    $("#DeleteRecord #Trigia").val(response.trigia);
+                }
+            })
+    })
+        $('#xlnhapngay').on('blur', function () {
+            var date = $(this).val();
+            console.log(date)
+            $('#NgMuon').val(date);
+        })
+        $('body').on('click', '#btnSach', function (e) {
+            e.preventDefault();
+            //Get Value
+            // var selected = $('.category').select2("val");
+            var selected = $('#IdSach').val();
+            var temp = "";
+            for (var i = 0; i < selected.length; i++) {
+                temp += selected[i] + "&";
+            }
+            $('#txtSach').val(temp);
+        });
+
+    </script>
+
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách phiếu trả sách</h6>
+        </div>
+
+        <p></p>
+
+        <div class="container">
+
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" id="IdDg" name="Masp" value="1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="Hotendg">Độc giả</label>
+                                <select name="Hotendg" id="Hotendg" class="form-control">
+                                    @foreach (Thedocgia tdg in (List<Thedocgia>)ViewBag.TheDocGia)
+                                    {
+                                        <option value="@tdg.IdDg">@tdg.Hotendg</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="col-md-12">Sách</label>
+                                <select class="custom-select" name="IdSach" id="IdSach" multiple="multiple">
+                                    @foreach (Sach s in (List<Sach>)ViewBag.Sach)
+                                    {
+                                        <option value="@s.IdSach">@s.IdSach</option>
+                                    }
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="btntg">Áp dụng</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Ngày trả</label>
+                                <input type="datetime-local" class="form-control" id="xlnhapngay" required />
+                            </div>
+                            <input type="hidden" class="form-control" id="Ngtra" name="Ngtra" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Tiền phạt kì này</label>
+                                <input type="text" class="form-control" id="Tienphat" name="Tienphat" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Tổng nợ</label>
+                                <input type="text" class="form-control" id="Tongno" name="Tongno" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10"></div>
+                            <div class="form-group col-md-2">
+                                <button type="submit" class="btn btn-primary">Thêm</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div id="msgA" class="@TempData["AlertType"]" role="alert">
+                @TempData["AlertMessage"]
+            </div>}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th width="20%">Ngày trả</th>
+                            <th width="20%">Tiền phạt kì này</th>
+                            <th width="20%">Tổng nợ</th>
+                            <th width="20%">Họ tên độc giả</th>
+                            <th width="20%">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ngtra)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tienphatkinay)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tongno)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdDgNavigation.Hotendg)
+                                </td>
+                                <td>
+                                    @*<a asp-action="Edit" asp-route-id="@item.IdPts" class="btn btn-secondary">Edit</a>*@
+                                    <a asp-action="Details" asp-route-id="@item.IdPts" class="btn btn-info">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdPts" class="btn btn-danger delete">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: calc(1.5em + 0.75rem + 2px) !important;
+        }
+
+        .select2-selection--single .select2-selection__rendered {
+            padding-top: 2px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 5px !important;
+        }
+
+        .tg {
+            padding: 0px !important;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            height: calc(1.5em + 0.75rem + 2px) !important;
+            width: 813px !important;
+        }
+    </style>
+
