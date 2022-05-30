@@ -171,8 +171,6 @@ drop table if exists PHIEUMUONSACH;
 
 drop table if exists PHIEUTHUTIENPHAT;
 
-drop index THUOC_FK on PHIEUTRASACH;
-
 drop table if exists PHIEUTRASACH;
 
 drop table if exists SACH;
@@ -213,8 +211,8 @@ create table CHITIET_PTS
 (
    ID_PTS               int not null,
    ID_SACH              int not null,
-   SONGMUON             numeric(8,0),
-   TIENPHAT             numeric(8,0),
+   SONGMUON             int,
+   TIENPHAT             int,
    primary key (ID_PTS, ID_SACH)
 );
 
@@ -265,7 +263,7 @@ create table PHIEUTHUTIENPHAT
 /*==============================================================*/
 create table PHIEUTRASACH
 (
-   ID_PTS               int not null,
+   ID_PTS               int AUTO_INCREMENT not null,
    ID_DG                int not null,
    NGTRA                date,
    TIENPHATKINAY        numeric(8,0),
@@ -800,11 +798,39 @@ INSERT INTO chitiet_dausach_tacgia VALUES (60,57);
 
 
 
+-- procedure
 
-
-
-
-
-
-
-
+drop procedure xuli;
+delimiter //
+CREATE PROCEDURE xuli (IN fidsach int, fiddocgia int, fngtra datetime, fidpts int)
+  BEGIN
+    declare n_ngmuon datetime;
+    declare n_songaymuon int;
+    declare n_songaytratre int;
+    declare n_maxngaymuon int;
+    
+    -- lấy ngày mượn
+    select ngmuon into n_ngmuon
+    from phieumuonsach p, chitiet_pms c
+    where p.id_pms = c.id_pms
+    and id_dg = fiddocgia
+    and id_sach = fidsach
+    and tinhtrang = 'chưa trả';
+    
+    -- đếm số ngày trả trễ
+    select datediff(fngtra, n_ngmuon) into n_songaymuon;
+    
+    -- lấy tham số
+    select maxngaymuon into n_maxngaymuon
+    from thamso;
+    -- cập nhật chi tiết trả sách
+    update chitiet_pts
+    set songmuon =n_songaymuon, tienphat = (n_songaymuon-n_maxngaymuon)*1000
+    where id_sach = fidsach and id_pts = fidpts;
+	-- cập nhật tiền phạt
+     update phieutrasach
+    set tienphatkinay= tienphatkinay + (n_songaymuon-n_maxngaymuon)*1000, tongno = tienphatkinay 
+    where id_pts = fidpts;
+  END//
+delimiter ;
+insert into thamso values (18,55,6,8,5,4);

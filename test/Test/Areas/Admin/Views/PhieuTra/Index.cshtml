@@ -4,55 +4,6 @@
     ViewData["Title"] = "View";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-@*<h1>View</h1>
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ngtra)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tienphatkinay)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tongno)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdDg)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ngtra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tienphatkinay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tongno)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdDg)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdPts">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdPts">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdPts">Delete</a>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>*@
-
-
 @section Scripts{
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
@@ -62,7 +13,7 @@
             $('#dataTable').DataTable();
         });
         $(function () {
-            $("#Hotendg").select2();
+            $("#IdDg").select2();
             $('#IdSach').select2({
                 language: {
                     noResults: function () {

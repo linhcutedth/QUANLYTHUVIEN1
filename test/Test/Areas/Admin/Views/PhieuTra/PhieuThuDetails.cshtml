@@ -1,0 +1,96 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = "PhieuThuDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>PhieuThuDetails</h1>
+
+<div>
+    <h4>Phieuthutienphat</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tongno)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tongno)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Conlai)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Conlai)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdPtsNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdPtsNavigation.IdPts)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdPhieuthu">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+
+<div class="container-fluid">
+
+<!-- Page Heading -->
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">CHI TIẾT THỂ LOẠI</h6>
+    </div>
+
+    <p></p>
+
+
+
+
+    <div class="p-4">
+        <div class="container">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="2">Thông tin phiếu thu tiền phạt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <input type="hidden" name="IdPts" class="form-control" id="IdPts" value="@Model.GetType().GetProperty("IdPts").GetValue(Model, null)" />
+                    <tr>
+                        <th scope="row">Họ tên độc giả</th>
+                        <td>@Model.GetType().GetProperty("HotenDG").GetValue(Model, null)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tổng nợ</th>
+                        <td>@Model.GetType().GetProperty("TongNo").GetValue(Model, null)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Số tiền thu</th>
+                        <td>@(ViewBag.Tongno - ViewBag.Conlai)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Còn lại</th>
+                        <td>@ViewBag.Conlai</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            
+        </div>
+    </div>
+</div>
+    
+
+<a asp-action="Index">Trở về trang danh sách</a>
+<style>
+    .table tbody th {
+        width: 350px
+    }
+</style>

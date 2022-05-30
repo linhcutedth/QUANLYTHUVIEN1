@@ -224,10 +224,10 @@ namespace Test.Areas.Admin.Controllers
 
             MySqlCommand cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@id_sach", idsach);
-
+            
             cmd.ExecuteNonQuery();
         }
-
+        
         public int getdausach(int idsach)
         {
             int kq = 0;
@@ -251,6 +251,78 @@ namespace Test.Areas.Admin.Controllers
             }
             return kq;
 
+        }
+
+        public ActionResult PhieuThu(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var pts = _context.Phieutrasach.Where(x => x.IdPts == id)
+                             .Select(x => new
+                             {
+                                 IdPts = x.IdPts,
+                                 HotenDG = x.IdDgNavigation.Hotendg,
+                                 TongNo = x.Tongno,
+
+                             }).Single();
+
+
+            if (pts == null)
+            {
+                return NotFound();
+            }
+
+            return View(pts);
+        }
+        public ActionResult PhieuThuDetails(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var pts = _context.Phieutrasach.Where(x => x.IdPts == id)
+                             .Select(x => new
+                             {
+                                 IdPts = x.IdPts,
+                                 HotenDG = x.IdDgNavigation.Hotendg,
+                                 TongNo = x.Tongno,
+                                 Phieuthutienphat = x.Phieuthutienphat.Select(c => new
+                                 {
+                                     Conlai = c.Conlai,
+
+
+                                 }).Single()
+
+
+                             }).Single();
+            ViewBag.Tongno = pts.TongNo;
+            ViewBag.Conlai = pts.Phieuthutienphat.Conlai;
+            if (pts == null)
+            {
+                return NotFound();
+            }
+
+            return View(pts);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePhieuThu([Bind("IdPts,Tongno")] Phieuthutienphat pttp, int sotienthu)
+        {
+
+            if (ModelState.IsValid)
+            {
+                pttp.Conlai = pttp.Tongno - sotienthu;
+
+                _context.Add(pttp);
+                await _context.SaveChangesAsync();
+                //TempData["AlertMessage"] = "Tạo thành công";
+                //TempData["AlertType"] = "alert alert-success";
+
+                return Redirect("/admin/phieutra/PhieuThuDetails/" + pttp.IdPts);
+            }
+            return Redirect("/admin/phieutra/PhieuThuDetails/" + pttp.IdPts);
         }
     }
 }
